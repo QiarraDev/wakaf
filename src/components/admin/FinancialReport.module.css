@@ -1,0 +1,337 @@
+.reportContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.reportHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.reportTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.reportControls {
+  display: flex;
+  gap: 1rem;
+}
+
+.controlButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.exportBtn {
+  background-color: #1e40af;
+  color: white;
+}
+
+.exportBtn:hover {
+  background-color: #1e3a8a;
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+}
+
+.printBtn {
+  background-color: transparent;
+  color: #1e40af;
+  border: 2px solid #1e40af;
+}
+
+.printBtn:hover {
+  background-color: #eff6ff;
+}
+
+/* Chart Section */
+.chartSection {
+  margin-bottom: 3rem;
+}
+
+.chartTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.chartContainer {
+  background-color: #f9fafb;
+  border-radius: 10px;
+  padding: 1.5rem;
+  position: relative;
+  min-height: 250px;
+}
+
+.chartBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+.chartBarGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chartBar {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.25rem;
+  height: 160px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  min-height: 2px;
+}
+
+.barIncome {
+  background: linear-gradient(180deg, #1e40af 0%, #3b82f6 100%);
+}
+
+.barExpense {
+  background: linear-gradient(180deg, #d97706 0%, #fb923c 100%);
+}
+
+.bar:hover {
+  opacity: 0.8;
+}
+
+.bar::after {
+  content: attr(data-value);
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bar:hover::after {
+  opacity: 1;
+}
+
+.chartLegend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 0.875rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legendIncome {
+  background: linear-gradient(90deg, #1e40af 0%, #3b82f6 100%);
+}
+
+.legendExpense {
+  background: linear-gradient(90deg, #d97706 0%, #fb923c 100%);
+}
+
+.monthLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+/* Summary Section */
+.summarySection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.summaryCard {
+  background-color: #f9fafb;
+  border-radius: 10px;
+  padding: 1.5rem;
+  border-left: 4px solid #e5e7eb;
+}
+
+.summaryCard.income {
+  border-left-color: #1e40af;
+}
+
+.summaryCard.expense {
+  border-left-color: #d97706;
+}
+
+.summaryCard.net {
+  border-left-color: #16a34a;
+}
+
+.summaryLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.summaryValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Expense Breakdown */
+.expenseBreakdown {
+  margin-top: 3rem;
+}
+
+.breakdownTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.breakdownTable th {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #6b7280;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.breakdownTable td {
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.875rem;
+}
+
+.breakdownTable tr:hover {
+  background-color: #f9fafb;
+}
+
+.expenseCategory {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.expenseAmount {
+  color: #1e40af;
+  font-weight: 600;
+}
+
+.expensePercentage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.percentageBar {
+  flex: 1;
+  height: 6px;
+  background-color: #e5e7eb;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.percentageFill {
+  height: 100%;
+  background: linear-gradient(90deg, #d97706 0%, #fb923c 100%);
+  border-radius: 3px;
+}
+
+.percentageText {
+  min-width: 35px;
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .summarySection {
+    grid-template-columns: 1fr;
+  }
+
+  .chartBars {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .reportContainer {
+    padding: 1.5rem;
+  }
+
+  .reportHeader {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .reportControls {
+    width: 100%;
+  }
+
+  .controlButton {
+    flex: 1;
+  }
+
+  .chartLegend {
+    gap: 1rem;
+    font-size: 0.75rem;
+  }
+
+  .breakdownTable th,
+  .breakdownTable td {
+    padding: 0.75rem;
+    font-size: 0.8125rem;
+  }
+}
+
+@media print {
+  .reportControls {
+    display: none;
+  }
+
+  .reportContainer {
+    box-shadow: none;
+    border: none;
+    page-break-inside: avoid;
+  }
+}

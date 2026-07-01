@@ -3,6 +3,18 @@
 import { useEffect, useState } from 'react';
 import { formatCurrency } from '@/lib/utils';
 import { Card } from '@/components/ui/Card';
+import { MetricsCard } from '@/components/admin/MetricsCard';
+import { ProgressTimeline } from '@/components/admin/ProgressTimeline';
+import { FinancialReport } from '@/components/admin/FinancialReport';
+import { DonationReportTable } from '@/components/admin/DonationReportTable';
+import { generatePDFReport, generateCSVReport } from '@/lib/pdf-export';
+import {
+  mockAdminMetrics,
+  mockFinancialData,
+  mockProjectProgress,
+  mockDonationReports,
+  expenseCategories,
+} from '@/data/mock-admin';
 import styles from './page.module.css';
 
 interface Contribution {
@@ -15,6 +27,7 @@ interface Contribution {
 
 export default function AdminDashboardPage() {
   const [allContributions, setAllContributions] = useState<Contribution[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // In a real app, this would be an API call fetching all users' data.
@@ -23,72 +36,174 @@ export default function AdminDashboardPage() {
     if (saved) {
       setAllContributions(JSON.parse(saved));
     }
+    setIsLoading(false);
   }, []);
 
-  const totalFunds = allContributions.reduce((sum, item) => sum + item.amount, 0);
-  const totalTransactions = allContributions.length;
+  const handleExportPDF = () => {
+    const totalExpense = mockFinancialData.reduce((sum, item) => sum + item.expense, 0);
+    const totalIncome = mockFinancialData.reduce((sum, item) => sum + item.income, 0);
+    
+    const exportData = {
+      title: 'Laporan Keuangan & Progress Wakaf Konstruksi',
+      generatedDate: new Date().toLocaleDateString('id-ID', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+      metrics: {
+        totalIncome: totalIncome,
+        totalExpense: totalExpense,
+        netIncome: totalIncome - totalExpense,
+        activeProjects: mockAdminMetrics.activeProjects,
+        totalDonors: mockAdminMetrics.totalDonors,
+      },
+      financialData: mockFinancialData,
+      expenseCategories: expenseCategories,
+      projectProgress: mockProjectProgress.map(proj => ({
+        name: proj.name,
+        targetAmount: proj.targetAmount,
+        collectedAmount: proj.collectedAmount,
+        status: proj.status,
+      })),
+      donations: mockDonationReports,
+    };
+
+    generatePDFReport(exportData);
+  };
+
+  const handleExportCSV = () => {
+    const totalExpense = mockFinancialData.reduce((sum, item) => sum + item.expense, 0);
+    const totalIncome = mockFinancialData.reduce((sum, item) => sum + item.income, 0);
+    
+    const exportData = {
+      title: 'Laporan Keuangan & Progress Wakaf Konstruksi',
+      generatedDate: new Date().toLocaleDateString('id-ID'),
+      metrics: {
+        totalIncome: totalIncome,
+        totalExpense: totalExpense,
+        netIncome: totalIncome - totalExpense,
+        activeProjects: mockAdminMetrics.activeProjects,
+        totalDonors: mockAdminMetrics.totalDonors,
+      },
+      financialData: mockFinancialData,
+      expenseCategories: expenseCategories,
+      projectProgress: mockProjectProgress.map(proj => ({
+        name: proj.name,
+        targetAmount: proj.targetAmount,
+        collectedAmount: proj.collectedAmount,
+        status: proj.status,
+      })),
+      donations: mockDonationReports,
+    };
+
+    generateCSVReport(exportData);
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Dashboard Nazhir (Admin)</h1>
-        <p className={styles.subtitle}>Pantau laporan transaksi dan pengumpulan dana wakaf secara *real-time*.</p>
-      </div>
-
-      <div className={styles.statsGrid}>
-        <Card className={styles.statCard}>
-          <h3>Total Dana Terkumpul</h3>
-          <p className={styles.statValue}>{formatCurrency(totalFunds)}</p>
-        </Card>
-        <Card className={styles.statCard}>
-          <h3>Total Transaksi Berhasil</h3>
-          <p className={styles.statValue}>{totalTransactions}</p>
-        </Card>
-        <Card className={styles.statCard}>
-          <h3>Program Aktif</h3>
-          <p className={styles.statValue}>4</p>
-        </Card>
-      </div>
-
-      <div className={styles.reportSection}>
-        <div className={styles.reportHeader}>
-          <h2>Laporan Detail Transaksi</h2>
-          <button className={styles.exportBtn} onClick={() => window.print()}>Cetak Laporan</button>
+        <div>
+          <h1 className={styles.title}>Dashboard Nazhir</h1>
+          <p className={styles.subtitle}>
+            Pantau ringkasan keuangan, progress project, dan semua data transaksi wakaf secara real-time.
+          </p>
         </div>
-        
-        {allContributions.length === 0 ? (
-          <div className={styles.emptyState}>
-            <p>Belum ada data transaksi yang masuk.</p>
-          </div>
-        ) : (
-          <div className={styles.tableContainer}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>ID Transaksi</th>
-                  <th>Tanggal</th>
-                  <th>Nama Wakif</th>
-                  <th>Nama Program</th>
-                  <th>Nominal</th>
-                  <th>Metode</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allContributions.map((c) => (
-                  <tr key={c.id}>
-                    <td className={styles.txId}>#{c.id.toUpperCase()}</td>
-                    <td>{new Date(c.date).toLocaleString('id-ID')}</td>
-                    <td><strong>{c.wakifName || 'Hamba Allah'}</strong></td>
-                    <td>{c.campaignTitle}</td>
-                    <td className={styles.amount}>{formatCurrency(c.amount)}</td>
-                    <td>Gateway (Mock)</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        <div className={styles.headerActions}>
+          <button className={styles.actionBtn} onClick={handleExportPDF} title="Export laporan sebagai PDF">
+            📥 Export PDF
+          </button>
+          <button className={styles.actionBtn} onClick={handleExportCSV} title="Export data sebagai CSV">
+            📊 Export CSV
+          </button>
+        </div>
       </div>
+
+      {/* Key Metrics Section */}
+      <section className={styles.metricsSection}>
+        <h2 className={styles.sectionTitle}>Ringkasan Metrik Utama</h2>
+        <div className={styles.metricsGrid}>
+          <MetricsCard
+            label="Total Pemasukan"
+            value={formatCurrency(mockAdminMetrics.totalIncome)}
+            change={12}
+            variant="primary"
+            icon="📈"
+          />
+          <MetricsCard
+            label="Dana Terkunci (Escrow)"
+            value={formatCurrency(mockAdminMetrics.totalLocked)}
+            change={5}
+            variant="warning"
+            icon="🔒"
+          />
+          <MetricsCard
+            label="Dana Dilepaskan"
+            value={formatCurrency(mockAdminMetrics.totalReleased)}
+            change={8}
+            variant="success"
+            icon="✓"
+          />
+          <MetricsCard
+            label="Target Total Program"
+            value={formatCurrency(mockAdminMetrics.totalTargets)}
+            change={0}
+            variant="primary"
+            icon="🎯"
+          />
+          <MetricsCard
+            label="Project Aktif"
+            value={mockAdminMetrics.activeProjects}
+            change={0}
+            variant="primary"
+            icon="🏗️"
+          />
+          <MetricsCard
+            label="Total Donatur"
+            value={mockAdminMetrics.totalDonors.toLocaleString('id-ID')}
+            change={18}
+            variant="success"
+            icon="👥"
+          />
+        </div>
+      </section>
+
+      {/* Financial Report Section */}
+      <section className={styles.reportSection}>
+        <FinancialReport
+          financialData={mockFinancialData}
+          expenseCategories={expenseCategories}
+          onExportPDF={handleExportPDF}
+        />
+      </section>
+
+      {/* Project Progress Section */}
+      <section className={styles.progressSection}>
+        <h2 className={styles.sectionTitle}>Progress Timeline Project Wakaf</h2>
+        <ProgressTimeline projects={mockProjectProgress} />
+      </section>
+
+      {/* Donation Report Section */}
+      <section className={styles.donationSection}>
+        <DonationReportTable reports={mockDonationReports} />
+      </section>
+
+      {/* Local Storage Contributions - Optional */}
+      {allContributions.length > 0 && (
+        <section className={styles.localStorageSection}>
+          <h2 className={styles.sectionTitle}>Donasi dari Platform (Local Storage)</h2>
+          <Card className={styles.storageCard}>
+            <div className={styles.storageContent}>
+              <p className={styles.storageInfo}>
+                Total donasi dari platform: <strong>{formatCurrency(allContributions.reduce((sum, item) => sum + item.amount, 0))}</strong>
+              </p>
+              <p className={styles.storageInfo}>
+                Jumlah transaksi: <strong>{allContributions.length}</strong>
+              </p>
+            </div>
+          </Card>
+        </section>
+      )}
     </div>
   );
 }

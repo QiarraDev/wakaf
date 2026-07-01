@@ -11,6 +11,8 @@
   text-decoration: none;
   font-family: inherit;
   outline: none;
+  pointer-events: auto;
+  z-index: 10;
 }
 
 .button:focus {
@@ -26,6 +28,7 @@
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* Variants */
