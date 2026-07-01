@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import styles from './DonationModal.module.css';
 import { Button } from '@/components/ui/Button';
+import { CertificateModal } from './CertificateModal';
 
 interface DonationModalProps {
   isOpen: boolean;
@@ -12,8 +13,10 @@ interface DonationModalProps {
 
 export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, campaignTitle }) => {
   const [amount, setAmount] = useState<number>(0);
+  const [wakifName, setWakifName] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showCertificate, setShowCertificate] = useState(false);
 
   if (!isOpen) return null;
 
@@ -30,6 +33,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
         id: Math.random().toString(36).substr(2, 9),
         campaignTitle,
         amount,
+        wakifName: wakifName.trim() || 'Hamba Allah',
         date: new Date().toISOString()
       });
       localStorage.setItem('wakaf_contributions', JSON.stringify(contributions));
@@ -53,7 +57,10 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
             <div className={styles.checkIcon}>✓</div>
             <h3>Alhamdulillah!</h3>
             <p>Wakaf Anda sebesar Rp {amount.toLocaleString('id-ID')} untuk <strong>{campaignTitle}</strong> telah berhasil disalurkan.</p>
-            <Button fullWidth onClick={handleClose}>Tutup</Button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <Button variant="outline" fullWidth onClick={() => setShowCertificate(true)}>Lihat Piagam Wakaf</Button>
+              <Button fullWidth onClick={handleClose}>Tutup</Button>
+            </div>
           </div>
         ) : (
           <div className={styles.formState}>
@@ -70,6 +77,17 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
                   Rp {val.toLocaleString('id-ID')}
                 </button>
               ))}
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label>Nama Wakif (Opsional)</label>
+              <input 
+                type="text" 
+                value={wakifName} 
+                onChange={(e) => setWakifName(e.target.value)}
+                placeholder="Hamba Allah"
+                className={styles.input}
+              />
             </div>
 
             <div className={styles.inputGroup}>
@@ -93,6 +111,15 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
           </div>
         )}
       </div>
+
+      <CertificateModal 
+        isOpen={showCertificate}
+        onClose={() => setShowCertificate(false)}
+        campaignTitle={campaignTitle}
+        amount={amount}
+        wakifName={wakifName.trim() || 'Hamba Allah'}
+        date={new Date().toISOString()}
+      />
     </div>
   );
 };

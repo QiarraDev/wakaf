@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, use } from 'react';
 import { notFound } from 'next/navigation';
 import { mockCampaigns } from '@/data/mock-campaigns';
 import { formatCurrency, calculateProgress } from '@/lib/utils';
@@ -8,8 +8,9 @@ import { Button } from '@/components/ui/Button';
 import { DonationModal } from '@/components/campaigns/DonationModal';
 import styles from './page.module.css';
 
-export default function CampaignDetails({ params }: { params: { id: string } }) {
-  const campaign = mockCampaigns.find(c => c.id === params.id);
+export default function CampaignDetails({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const campaign = mockCampaigns.find(c => c.id === id);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!campaign) {
@@ -23,7 +24,12 @@ export default function CampaignDetails({ params }: { params: { id: string } }) 
       <div className={styles.header}>
         <div className={styles.imageWrapper} style={{ backgroundImage: `url(${campaign.imageUrl})` }}>
           <div className={styles.overlay}>
-            <span className={styles.badge}>{campaign.category}</span>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <span className={styles.badge}>{campaign.category}</span>
+              <span className={styles.badge} style={{ background: campaign.pbgStatus === 'Verified' ? 'var(--success-color)' : '#94a3b8' }}>
+                PBG: {campaign.pbgStatus}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -57,9 +63,29 @@ export default function CampaignDetails({ params }: { params: { id: string } }) 
           </div>
 
           <div className={styles.description}>
-            <h2>Cerita Program</h2>
+            <h2>Cerita Proyek Konstruksi</h2>
             <p>{campaign.description}</p>
-            <p>Wakaf produktif ini bertujuan untuk memberikan manfaat yang berkelanjutan bagi penerima manfaat. Kami memastikan setiap dana yang terkumpul dikelola secara profesional dan transparan.</p>
+            <p>Pembangunan infrastruktur umat ini dikerjakan oleh <strong>Mitra Konstruksi Terkurasi</strong> dan diawasi menggunakan sistem pencairan dana Escrow per-milestone guna menghindari proyek mangkrak.</p>
+          </div>
+
+          <div className={styles.milestonesSection}>
+            <h2>Timeline Konstruksi (Milestones)</h2>
+            <div className={styles.milestonesList}>
+              {campaign.milestones.map(m => (
+                <div key={m.id} className={`${styles.milestoneItem} ${styles[m.status]}`}>
+                  <div className={styles.milestoneIcon}>
+                    {m.status === 'completed' ? '✓' : m.status === 'in_progress' ? '⚙' : '⏳'}
+                  </div>
+                  <div className={styles.milestoneContent}>
+                    <h4>{m.name}</h4>
+                    <p>Estimasi Biaya: {formatCurrency(m.amount)}</p>
+                    <span className={styles.escrowStatus}>
+                      {m.escrowReleased ? '🟢 Dana Escrow Dicairkan' : '🔒 Dana Terkunci di Escrow'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

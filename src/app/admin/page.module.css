@@ -1,0 +1,138 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.header {
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.statCard {
+  padding: 2rem;
+  border-left: 4px solid var(--primary-color);
+  background: var(--surface-color);
+}
+
+.statCard h3 {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statValue {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.reportSection {
+  background: var(--surface-color);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.reportHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.reportHeader h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.exportBtn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.emptyState {
+  padding: 4rem;
+  text-align: center;
+  background: var(--background-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table th {
+  background: var(--background-color);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.txId {
+  font-family: monospace;
+  color: var(--text-secondary);
+}
+
+.amount {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .reportSection, .reportSection * {
+    visibility: visible;
+  }
+  .reportSection {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+  }
+  .exportBtn {
+    display: none;
+  }
+}

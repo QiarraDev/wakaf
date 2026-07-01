@@ -3,17 +3,21 @@
 import { useEffect, useState } from 'react';
 import { formatCurrency } from '@/lib/utils';
 import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { CertificateModal } from '@/components/campaigns/CertificateModal';
 import styles from './page.module.css';
 
 interface Contribution {
   id: string;
   campaignTitle: string;
   amount: number;
+  wakifName?: string;
   date: string;
 }
 
 export default function DashboardPage() {
   const [contributions, setContributions] = useState<Contribution[]>([]);
+  const [selectedCert, setSelectedCert] = useState<Contribution | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('wakaf_contributions');
@@ -55,6 +59,7 @@ export default function DashboardPage() {
                   <th>Program Wakaf</th>
                   <th>Nominal</th>
                   <th>Status</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -64,6 +69,9 @@ export default function DashboardPage() {
                     <td>{c.campaignTitle}</td>
                     <td className={styles.amount}>{formatCurrency(c.amount)}</td>
                     <td><span className={styles.statusSuccess}>Berhasil</span></td>
+                    <td>
+                      <Button variant="outline" size="sm" onClick={() => setSelectedCert(c)}>Lihat Piagam</Button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -71,6 +79,17 @@ export default function DashboardPage() {
           </div>
         )}
       </div>
+
+      {selectedCert && (
+        <CertificateModal 
+          isOpen={!!selectedCert}
+          onClose={() => setSelectedCert(null)}
+          campaignTitle={selectedCert.campaignTitle}
+          amount={selectedCert.amount}
+          wakifName={selectedCert.wakifName || 'Hamba Allah'}
+          date={selectedCert.date}
+        />
+      )}
     </div>
   );
 }

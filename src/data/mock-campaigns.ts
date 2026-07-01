@@ -1,3 +1,11 @@
+export interface Milestone {
+  id: string;
+  name: string;
+  status: 'completed' | 'in_progress' | 'pending';
+  escrowReleased: boolean;
+  amount: number;
+}
+
 export interface Campaign {
   id: string;
   title: string;
@@ -7,6 +15,8 @@ export interface Campaign {
   imageUrl: string;
   category: 'Mosque' | 'Education' | 'Water' | 'Health';
   daysLeft: number;
+  pbgStatus: 'Verified' | 'Pending' | 'Not Required';
+  milestones: Milestone[];
 }
 
 export const mockCampaigns: Campaign[] = [
@@ -18,7 +28,13 @@ export const mockCampaigns: Campaign[] = [
     currentAmount: 320500000,
     imageUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80',
     category: 'Mosque',
-    daysLeft: 45
+    daysLeft: 45,
+    pbgStatus: 'Verified',
+    milestones: [
+      { id: 'm1', name: 'Pondasi & Struktur Bawah', status: 'completed', escrowReleased: true, amount: 100000000 },
+      { id: 'm2', name: 'Struktur Dinding & Kolom', status: 'in_progress', escrowReleased: false, amount: 150000000 },
+      { id: 'm3', name: 'Atap & Finishing', status: 'pending', escrowReleased: false, amount: 250000000 },
+    ]
   },
   {
     id: '2',
@@ -28,7 +44,13 @@ export const mockCampaigns: Campaign[] = [
     currentAmount: 85000000,
     imageUrl: 'https://images.unsplash.com/photo-1541888043681-70bf815e616c?auto=format&fit=crop&w=800&q=80',
     category: 'Water',
-    daysLeft: 12
+    daysLeft: 12,
+    pbgStatus: 'Not Required',
+    milestones: [
+      { id: 'm4', name: 'Survei Geolistrik & Pengeboran', status: 'completed', escrowReleased: true, amount: 50000000 },
+      { id: 'm5', name: 'Instalasi Pipa & Tandon', status: 'in_progress', escrowReleased: false, amount: 50000000 },
+      { id: 'm6', name: 'Mesin Pompa & Finishing', status: 'pending', escrowReleased: false, amount: 50000000 },
+    ]
   },
   {
     id: '3',
@@ -38,7 +60,13 @@ export const mockCampaigns: Campaign[] = [
     currentAmount: 150000000,
     imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80',
     category: 'Education',
-    daysLeft: 90
+    daysLeft: 90,
+    pbgStatus: 'Verified',
+    milestones: [
+      { id: 'm7', name: 'Pembebasan Lahan', status: 'completed', escrowReleased: true, amount: 500000000 },
+      { id: 'm8', name: 'Pondasi Bangunan', status: 'pending', escrowReleased: false, amount: 300000000 },
+      { id: 'm9', name: 'Dinding & Atap', status: 'pending', escrowReleased: false, amount: 400000000 },
+    ]
   },
   {
     id: '4',
@@ -48,6 +76,11 @@ export const mockCampaigns: Campaign[] = [
     currentAmount: 290000000,
     imageUrl: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80',
     category: 'Health',
-    daysLeft: 5
+    daysLeft: 5,
+    pbgStatus: 'Pending',
+    milestones: [
+      { id: 'm10', name: 'Renovasi Fisik Klinik', status: 'completed', escrowReleased: true, amount: 150000000 },
+      { id: 'm11', name: 'Pengadaan Alat Medis', status: 'in_progress', escrowReleased: false, amount: 150000000 },
+    ]
   }
 ];

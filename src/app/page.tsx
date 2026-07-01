@@ -14,10 +14,10 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <h1 className={styles.title}>
-            Wujudkan Kebaikan Abadi <br/> Melalui <span>Wakaf Produktif</span>
+            Infrastruktur Umat, <br/> Dibangun Bersama <span>Wakaf Konstruksi</span>
           </h1>
           <p className={styles.subtitle}>
-            Platform terpercaya untuk menyalurkan wakaf Anda. Bersama kita bangun kemandirian umat dan berikan manfaat yang tak terputus.
+            Platform marketplace 3-sisi: <strong>Waqif</strong>, <strong>Pengelola Fasilitas</strong>, dan <strong>Mitra Konstruksi</strong>. Berwakaf aman dengan jaminan SNI, izin PBG, dan pencairan dana Escrow per-milestone (Anti-mangkrak).
           </p>
           <div className={styles.heroActions}>
             <Link href="/campaigns">

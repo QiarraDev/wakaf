@@ -1,0 +1,175 @@
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modalContainer {
+  background: var(--surface-color);
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--background-color);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Certificate Styles */
+.certificateArea {
+  padding: 2rem;
+  background: #fdfdfd; /* Always light background for certificate */
+  color: #1e293b;
+}
+
+.borderOuter {
+  border: 12px solid #0d9488;
+  padding: 8px;
+  background: #ffffff;
+}
+
+.borderInner {
+  border: 2px solid #0d9488;
+  padding: 4rem 2rem;
+  text-align: center;
+  background-image: radial-gradient(#0d9488 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+  background-color: #ffffff;
+  /* Add a subtle pattern */
+  box-shadow: inset 0 0 0 1000px rgba(255,255,255,0.92);
+}
+
+.header {
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 4rem;
+  font-family: serif;
+  color: #0d9488;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+.body {
+  margin-bottom: 4rem;
+}
+
+.body p {
+  font-size: 1.25rem;
+  color: #475569;
+  margin-bottom: 1rem;
+}
+
+.amount {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0f766e;
+  margin: 1rem 0 2rem;
+}
+
+.programBox {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.programBox p {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.programBox h3 {
+  font-size: 1.75rem;
+  color: #1e293b;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 4rem;
+}
+
+.signature {
+  text-align: left;
+}
+
+.signature p {
+  color: #64748b;
+  margin-bottom: 0.25rem;
+}
+
+.signature strong {
+  font-size: 1.25rem;
+  color: #1e293b;
+}
+
+.stamp {
+  width: 100px;
+  height: 100px;
+  border: 4px solid #0d9488;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #0d9488;
+  transform: rotate(-15deg);
+  opacity: 0.8;
+}
+
+/* Print Specific Styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .certificateArea, .certificateArea * {
+    visibility: visible;
+  }
+  .certificateArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 0;
+  }
+  .modalContainer {
+    box-shadow: none;
+  }
+  .actions {
+    display: none;
+  }
+}

@@ -1,0 +1,149 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.calculatorCard, .resultCard {
+  padding: 2rem;
+}
+
+.formGroup {
+  margin-bottom: 2rem;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1.125rem;
+  background: var(--background-color);
+  color: var(--text-primary);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+}
+
+.radioGroup {
+  display: flex;
+  gap: 2rem;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: normal !important;
+  cursor: pointer;
+}
+
+.rangeInput {
+  width: 100%;
+  margin-top: 0.5rem;
+  accent-color: var(--primary-color);
+}
+
+.rangeValue {
+  text-align: right;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-top: 0.5rem;
+}
+
+.resultCard h2 {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.projectedTotal {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.resultDesc {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.impactSection h3 {
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.impactList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.impactList li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.impactIcon {
+  font-size: 2rem;
+  background: var(--background-color);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.impactList strong {
+  color: var(--primary-color);
+  font-size: 1.125rem;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}

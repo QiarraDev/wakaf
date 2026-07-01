@@ -28,6 +28,7 @@
 - `/campaigns` - Explore page to filter and search available Wakaf opportunities.
 - `/campaigns/[id]` - Dynamic route for viewing a single campaign.
 - `/dashboard` - Private route (mocked) to view user's Wakaf portfolio.
+- `/admin` - Reporting dashboard for Nazhir to view aggregated transactions.
 
 ## 3. Key Components
 - **`Button`:** Highly interactive, styled with CSS modules.
