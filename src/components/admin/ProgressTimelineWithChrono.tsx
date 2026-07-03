@@ -1,22 +1,31 @@
 'use client';
 
-import React, { useMemo, Suspense } from 'react';
+import React, { useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import { formatCurrency } from '@/lib/utils';
 import type { ProjectProgress } from '@/data/mock-admin';
 import styles from './ProgressTimeline.module.css';
 
-// Dynamically import Chrono component
-const ChronoComponent = React.lazy(() =>
-  import('react-chrono').then(mod => ({ default: mod.Chrono }))
+// Dynamically import Chrono dengan ssr: false
+const Chrono = dynamic(
+  () => import('react-chrono').then(m => m.Chrono),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className={styles.emptyState} style={{ padding: '40px', textAlign: 'center' }}>
+        <p>Loading timeline...</p>
+      </div>
+    )
+  }
 );
 
-interface ProgressTimelineEnhancedProps {
+interface ProgressTimelineWithChronoProps {
   projects: ProjectProgress[];
   mode?: 'VERTICAL' | 'HORIZONTAL' | 'VERTICAL_ALTERNATING';
   autoplay?: boolean;
 }
 
-export const ProgressTimelineEnhanced: React.FC<ProgressTimelineEnhancedProps> = ({
+export const ProgressTimelineWithChrono: React.FC<ProgressTimelineWithChronoProps> = ({
   projects,
   mode = 'VERTICAL',
   autoplay = false,
@@ -28,25 +37,17 @@ export const ProgressTimelineEnhanced: React.FC<ProgressTimelineEnhancedProps> =
         (project.collectedAmount / project.targetAmount) * 100
       );
 
-      // Combine semua milestones dari semua projects
       return project.milestones.map((milestone) => ({
         title: project.name,
         cardTitle: milestone.name,
         cardSubtitle: formatCurrency(project.collectedAmount),
-        cardDetailedText: `📊 Progress: ${fundingPercentage}%
-💰 Terkumpul: ${formatCurrency(project.collectedAmount)} / ${formatCurrency(project.targetAmount)}
-🔒 Terkunci: ${formatCurrency(project.lockedAmount)}
-✓ Dilepaskan: ${formatCurrency(project.releasedAmount)}
-
-Status: ${
+        cardDetailedText: `📊 Progress: ${fundingPercentage}%\n💰 Terkumpul: ${formatCurrency(project.collectedAmount)} / ${formatCurrency(project.targetAmount)}\n🔒 Terkunci: ${formatCurrency(project.lockedAmount)}\n✓ Dilepaskan: ${formatCurrency(project.releasedAmount)}\n\nStatus: ${
           milestone.status === 'completed'
             ? '✓ Selesai'
             : milestone.status === 'in_progress'
               ? '◐ Sedang Berlangsung'
               : '○ Belum Dimulai'
         }`,
-        status: milestone.status,
-        milestone: milestone.percentage,
       }));
     });
   }, [projects]);
@@ -58,44 +59,29 @@ Status: ${
   return (
     <div className={styles.enhancedTimelineContainer}>
       <div className={styles.timelineHeader}>
-        <h2 className={styles.title}>Timeline Konstruksi (Milestones)</h2>
+        <h2 className={styles.title}>Timeline Konstruksi (Milestones) - React-Chrono</h2>
         <p className={styles.subtitle}>
           Pantau progress setiap tahapan konstruksi dari {projects.length} project aktif
         </p>
       </div>
 
       <div className={styles.chronoWrapper}>
-        <Suspense fallback={<div className={styles.emptyState}>Loading timeline...</div>}>
-          <ChronoComponent
-            items={chronoItems}
-            mode={mode}
-            hideControls={false}
-            buttonTexts={{
-              title: 'Timeline',
-              details: 'Details',
-            }}
-            theme={{
-              primary: '#1e40af',
-              secondary: '#16a34a',
-              titleColor: '#111827',
-              titleColorActive: '#1e40af',
-              cardBgColor: '#ffffff',
-              cardForegroundColor: '#6b7280',
-              detailsColor: '#111827',
-            }}
-            classNames={{
-              card: styles.chronoCard,
-              cardTitle: styles.chronoCardTitle,
-              cardSubtitle: styles.chronoCardSubtitle,
-              details: styles.chronoDetails,
-              title: styles.chronoTitle,
-              timeline: styles.chronoTimeline,
-            }}
-            autoPlay={autoplay}
-            autoPlayDelay={3000}
-            slideShowRunning={false}
-          />
-        </Suspense>
+        <Chrono
+          items={chronoItems}
+          mode={mode}
+          hideControls={false}
+          theme={{
+            primary: '#1e40af',
+            secondary: '#16a34a',
+            titleColor: '#111827',
+            titleColorActive: '#1e40af',
+            cardBgColor: '#ffffff',
+            cardForegroundColor: '#6b7280',
+            detailsColor: '#111827',
+          }}
+          autoPlay={autoplay}
+          autoPlayDelay={3000}
+        />
       </div>
 
       {/* Summary Cards */}
@@ -226,4 +212,4 @@ Status: ${
   );
 };
 
-export default ProgressTimelineEnhanced;
+export default ProgressTimelineWithChrono;

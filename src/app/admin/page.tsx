@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { formatCurrency } from '@/lib/utils';
 import { Card } from '@/components/ui/Card';
 import { MetricsCard } from '@/components/admin/MetricsCard';
-import { ProgressTimeline } from '@/components/admin/ProgressTimeline';
+import { ProgressTimelineWithChrono } from '@/components/admin/ProgressTimelineWithChrono';
 import { FinancialReport } from '@/components/admin/FinancialReport';
 import { DonationReportTable } from '@/components/admin/DonationReportTable';
 import { generatePDFReport, generateCSVReport } from '@/lib/pdf-export';
@@ -180,7 +180,7 @@ export default function AdminDashboardPage() {
       {/* Project Progress Section */}
       <section className={styles.progressSection}>
         <h2 className={styles.sectionTitle}>Progress Timeline Project Wakaf</h2>
-        <ProgressTimeline projects={mockProjectProgress} />
+        <ProgressTimelineWithChrono projects={mockProjectProgress} mode="VERTICAL" autoplay={false} />
       </section>
 
       {/* Donation Report Section */}

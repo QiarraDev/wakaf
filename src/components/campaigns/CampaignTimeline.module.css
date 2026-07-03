@@ -1,0 +1,362 @@
+.timelineContainer {
+  width: 100%;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  padding: 32px 24px;
+  margin: 24px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.timelineHeader {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.timelineTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.timelineSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  max-width: 600px;
+  margin: 8px auto 0;
+}
+
+.chronoWrapper {
+  width: 100%;
+  margin: 32px 0;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: #6b7280;
+  font-size: 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+/* Escrow Information Section */
+.escrowInfo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 32px 0;
+}
+
+.escrowCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.escrowCard:hover {
+  border-color: #1e40af;
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+}
+
+.escrowIcon {
+  font-size: 28px;
+  min-width: 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+.escrowContent h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.escrowContent p {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Summary Statistics */
+.summaryStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin: 32px 0 0 0;
+}
+
+.statItem {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.statItem:hover {
+  border-color: #1e40af;
+  background: #f0f4f8;
+}
+
+.statLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.statValue {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+/* React-Chrono Custom Styling */
+:global(.chronoWrapper .react-chrono) {
+  padding: 0 !important;
+}
+
+:global(.chronoWrapper .timeline) {
+  width: 100% !important;
+}
+
+:global(.chronoWrapper .timeline__item) {
+  margin: 20px 0 !important;
+}
+
+:global(.chronoWrapper .timeline__item--title) {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #111827 !important;
+}
+
+:global(.chronoWrapper .timeline__card) {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+:global(.chronoWrapper .timeline__card:hover) {
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1) !important;
+  border-color: #1e40af !important;
+}
+
+:global(.chronoWrapper .timeline__card--title) {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #1e40af !important;
+  margin-bottom: 4px !important;
+}
+
+:global(.chronoWrapper .timeline__card--subtitle) {
+  font-size: 13px !important;
+  color: #16a34a !important;
+  font-weight: 500 !important;
+}
+
+:global(.chronoWrapper .timeline__card--details) {
+  font-size: 13px !important;
+  color: #6b7280 !important;
+  line-height: 1.6 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .timelineContainer {
+    padding: 24px 16px;
+  }
+
+  .timelineTitle {
+    font-size: 20px;
+  }
+
+  .escrowInfo {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .summaryStats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timelineContainer {
+    padding: 16px 12px;
+    margin: 16px 0;
+    border-radius: 8px;
+  }
+
+  .timelineHeader {
+    margin-bottom: 20px;
+  }
+
+  .timelineTitle {
+    font-size: 18px;
+  }
+
+  .timelineSubtitle {
+    font-size: 13px;
+  }
+
+  .chronoWrapper {
+    padding: 16px;
+    margin: 20px 0;
+    border-radius: 8px;
+  }
+
+  .escrowInfo {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .escrowCard {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .escrowIcon {
+    font-size: 24px;
+  }
+
+  .escrowContent h4 {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .escrowContent p {
+    font-size: 12px;
+  }
+
+  .summaryStats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .statItem {
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  .statLabel {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .statValue {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timelineContainer {
+    padding: 12px 8px;
+    margin: 12px 0;
+  }
+
+  .timelineTitle {
+    font-size: 16px;
+  }
+
+  .timelineSubtitle {
+    font-size: 12px;
+  }
+
+  .chronoWrapper {
+    padding: 12px;
+    margin: 16px 0;
+  }
+
+  .escrowCard {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .escrowIcon {
+    font-size: 20px;
+    min-width: auto;
+  }
+
+  .escrowContent h4 {
+    font-size: 13px;
+  }
+
+  .escrowContent p {
+    font-size: 11px;
+  }
+
+  .summaryStats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .statItem {
+    padding: 10px;
+  }
+
+  .statLabel {
+    font-size: 10px;
+  }
+
+  .statValue {
+    font-size: 14px;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timelineContainer {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.escrowCard {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.statItem {
+  animation: fadeIn 0.3s ease-out;
+}

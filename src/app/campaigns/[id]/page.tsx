@@ -6,6 +6,7 @@ import { mockCampaigns } from '@/data/mock-campaigns';
 import { formatCurrency, calculateProgress } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { DonationModal } from '@/components/campaigns/DonationModal';
+import { CampaignTimeline } from '@/components/campaigns/CampaignTimeline';
 import styles from './page.module.css';
 
 export default function CampaignDetails({ params }: { params: Promise<{ id: string }> }) {
@@ -68,25 +69,11 @@ export default function CampaignDetails({ params }: { params: Promise<{ id: stri
             <p>Pembangunan infrastruktur umat ini dikerjakan oleh <strong>Mitra Konstruksi Terkurasi</strong> dan diawasi menggunakan sistem pencairan dana Escrow per-milestone guna menghindari proyek mangkrak.</p>
           </div>
 
-          <div className={styles.milestonesSection}>
-            <h2>Timeline Konstruksi (Milestones)</h2>
-            <div className={styles.milestonesList}>
-              {campaign.milestones.map(m => (
-                <div key={m.id} className={`${styles.milestoneItem} ${styles[m.status]}`}>
-                  <div className={styles.milestoneIcon}>
-                    {m.status === 'completed' ? '✓' : m.status === 'in_progress' ? '⚙' : '⏳'}
-                  </div>
-                  <div className={styles.milestoneContent}>
-                    <h4>{m.name}</h4>
-                    <p>Estimasi Biaya: {formatCurrency(m.amount)}</p>
-                    <span className={styles.escrowStatus}>
-                      {m.escrowReleased ? '🟢 Dana Escrow Dicairkan' : '🔒 Dana Terkunci di Escrow'}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* React-Chrono Timeline Component */}
+          <CampaignTimeline 
+            campaignTitle={campaign.title}
+            milestones={campaign.milestones}
+          />
         </div>
 
         <div className={styles.sidebar}>
