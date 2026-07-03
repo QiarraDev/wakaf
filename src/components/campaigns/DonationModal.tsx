@@ -68,7 +68,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
             <p className={styles.subtitle}>Anda akan berwakaf untuk: {campaignTitle}</p>
             
             <div className={styles.amountPresets}>
-              {[50000, 100000, 250000, 500000].map(val => (
+              {[50000, 100000, 250000, 500000, 1000000, 2000000].map(val => (
                 <button 
                   key={val} 
                   className={`${styles.presetBtn} ${amount === val ? styles.active : ''}`}
@@ -92,11 +92,12 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
 
             <div className={styles.inputGroup}>
               <label>Nominal Lainnya (Rp)</label>
+              <p>Masukkan jumlah custom sesuai kemampuan Anda</p>
               <input 
                 type="number" 
                 value={amount || ''} 
                 onChange={(e) => setAmount(Number(e.target.value))}
-                placeholder="Masukkan nominal"
+                placeholder="Masukkan nominal (minimum: Rp 10.000)"
                 className={styles.input}
               />
             </div>
