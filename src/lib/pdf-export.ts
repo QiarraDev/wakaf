@@ -50,211 +50,316 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
   container.style.padding = '20mm';
   container.style.backgroundColor = 'white';
   container.style.fontFamily = 'Arial, sans-serif';
-  container.style.fontSize = '11px';
-  container.style.lineHeight = '1.6';
+  container.style.fontSize = '10px';
+  container.style.lineHeight = '1.5';
   container.style.color = '#1f2937';
 
   // Create HTML content
   const htmlContent = `
-    <div style="margin-bottom: 30px;">
-      <h1 style="color: #1e40af; margin: 0 0 10px 0; font-size: 28px; border-bottom: 3px solid #1e40af; padding-bottom: 10px;">
-        ${data.title}
-      </h1>
-      <p style="color: #6b7280; margin: 10px 0 0 0; font-size: 11px;">
-        Tanggal Laporan: ${data.generatedDate}
-      </p>
-    </div>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Laporan Keuangan Wakaf Konstruksi</title>
+      <style>
+        @media print {
+          body { margin: 0; padding: 0; }
+          .page-break { page-break-after: always; }
+          table { page-break-inside: avoid; }
+        }
+        body {
+          font-family: Arial, sans-serif;
+          font-size: 10px;
+          line-height: 1.4;
+          color: #1f2937;
+          margin: 0;
+          padding: 20mm;
+        }
+        .header {
+          margin-bottom: 30px;
+          border-bottom: 3px solid #1e40af;
+          padding-bottom: 15px;
+        }
+        .header h1 {
+          color: #1e40af;
+          margin: 0 0 5px 0;
+          font-size: 22px;
+        }
+        .header p {
+          color: #6b7280;
+          margin: 5px 0 0 0;
+          font-size: 9px;
+        }
+        h2 {
+          color: #1f2937;
+          font-size: 14px;
+          margin: 20px 0 12px 0;
+          border-bottom: 2px solid #f3f4f6;
+          padding-bottom: 6px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 15px;
+        }
+        th {
+          background-color: #f3f4f6;
+          padding: 8px;
+          border: 1px solid #e5e7eb;
+          text-align: left;
+          font-weight: 600;
+          font-size: 9px;
+        }
+        td {
+          padding: 6px 8px;
+          border: 1px solid #e5e7eb;
+          font-size: 9px;
+        }
+        tr:nth-child(even) {
+          background-color: #f9fafb;
+        }
+        .section {
+          margin-bottom: 25px;
+          page-break-inside: avoid;
+        }
+        .summary-cards {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 10px;
+          margin-bottom: 20px;
+          page-break-inside: avoid;
+        }
+        .summary-card {
+          padding: 12px;
+          border: 1px solid #e5e7eb;
+          border-radius: 4px;
+        }
+        .summary-card.income {
+          background-color: #f0fdf4;
+          border-color: #86efac;
+        }
+        .summary-card.expense {
+          background-color: #fef3c7;
+          border-color: #fcd34d;
+        }
+        .summary-card.net {
+          background-color: #dbeafe;
+          border-color: #7dd3fc;
+        }
+        .summary-label {
+          font-size: 8px;
+          color: #6b7280;
+          margin-bottom: 4px;
+          font-weight: 600;
+        }
+        .summary-value {
+          font-size: 14px;
+          font-weight: 700;
+          color: #1f2937;
+        }
+        .footer {
+          margin-top: 40px;
+          padding-top: 15px;
+          border-top: 2px solid #e5e7eb;
+          text-align: center;
+          color: #9ca3af;
+          font-size: 8px;
+        }
+        .text-right {
+          text-align: right;
+        }
+        .text-center {
+          text-align: center;
+        }
+        .badge {
+          display: inline-block;
+          padding: 2px 6px;
+          border-radius: 3px;
+          font-size: 7px;
+          font-weight: 600;
+        }
+        .badge-active {
+          background-color: #dcfce7;
+          color: #16a34a;
+        }
+        .badge-completed {
+          background-color: #dbeafe;
+          color: #0284c7;
+        }
+        .badge-pending {
+          background-color: #fef3c7;
+          color: #d97706;
+        }
+      </style>
+    </head>
+    <body>
+      <!-- Header -->
+      <div class="header">
+        <h1>${data.title}</h1>
+        <p>Tanggal Laporan: ${data.generatedDate}</p>
+      </div>
 
-    <!-- Key Metrics Section -->
-    <div style="margin-bottom: 30px; page-break-inside: avoid;">
-      <h2 style="color: #1f2937; font-size: 16px; margin: 20px 0 15px 0; border-bottom: 2px solid #f3f4f6; padding-bottom: 8px;">
-        Ringkasan Metrik Utama
-      </h2>
-      <table style="width: 100%; border-collapse: collapse;">
-        <tr>
-          <td style="padding: 10px; border: 1px solid #e5e7eb; background-color: #f9fafb;">
-            <strong>Total Pemasukan:</strong>
-          </td>
-          <td style="padding: 10px; border: 1px solid #e5e7eb; text-align: right; color: #1e40af;">
-            <strong>${formatCurrency(data.metrics.totalIncome)}</strong>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #e5e7eb; background-color: #f9fafb;">
-            <strong>Total Pengeluaran:</strong>
-          </td>
-          <td style="padding: 10px; border: 1px solid #e5e7eb; text-align: right; color: #d97706;">
-            <strong>${formatCurrency(data.metrics.totalExpense)}</strong>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #e5e7eb; background-color: #f9fafb;">
-            <strong>Netto Surplus:</strong>
-          </td>
-          <td style="padding: 10px; border: 1px solid #e5e7eb; text-align: right; color: #16a34a;">
-            <strong>${formatCurrency(data.metrics.netIncome)}</strong>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #e5e7eb;">Project Aktif</td>
-          <td style="padding: 10px; border: 1px solid #e5e7eb; text-align: right;">
-            ${data.metrics.activeProjects}
-          </td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #e5e7eb; background-color: #f9fafb;">
-            <strong>Total Donatur:</strong>
-          </td>
-          <td style="padding: 10px; border: 1px solid #e5e7eb; text-align: right;">
-            <strong>${data.metrics.totalDonors}</strong>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Monthly Financial Data -->
-    <div style="margin-bottom: 30px; page-break-inside: avoid;">
-      <h2 style="color: #1f2937; font-size: 16px; margin: 20px 0 15px 0; border-bottom: 2px solid #f3f4f6; padding-bottom: 8px;">
-        Data Keuangan Bulanan
-      </h2>
-      <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
-        <thead>
-          <tr style="background-color: #f3f4f6;">
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: left; font-weight: 600;">Bulan</th>
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; font-weight: 600;">Pemasukan</th>
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; font-weight: 600;">Pengeluaran</th>
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; font-weight: 600;">Netto</th>
+      <!-- Key Metrics Section -->
+      <div class="section">
+        <h2>Ringkasan Metrik Utama</h2>
+        <div class="summary-cards">
+          <div class="summary-card income">
+            <div class="summary-label">Total Pemasukan</div>
+            <div class="summary-value">${formatCurrency(data.metrics.totalIncome)}</div>
+          </div>
+          <div class="summary-card expense">
+            <div class="summary-label">Total Pengeluaran</div>
+            <div class="summary-value">${formatCurrency(data.metrics.totalExpense)}</div>
+          </div>
+          <div class="summary-card net">
+            <div class="summary-label">Netto Surplus</div>
+            <div class="summary-value">${formatCurrency(data.metrics.netIncome)}</div>
+          </div>
+        </div>
+        <table>
+          <tr>
+            <td><strong>Project Aktif</strong></td>
+            <td class="text-right">${data.metrics.activeProjects}</td>
           </tr>
-        </thead>
-        <tbody>
-          ${data.financialData.map(item => `
-            <tr>
-              <td style="padding: 8px; border: 1px solid #e5e7eb;">${item.month}</td>
-              <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: right;">${formatCurrency(item.income)}</td>
-              <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: right;">${formatCurrency(item.expense)}</td>
-              <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; color: #1e40af;">
-                ${formatCurrency(item.income - item.expense)}
-              </td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Expense Categories -->
-    <div style="margin-bottom: 30px; page-break-inside: avoid;">
-      <h2 style="color: #1f2937; font-size: 16px; margin: 20px 0 15px 0; border-bottom: 2px solid #f3f4f6; padding-bottom: 8px;">
-        Rincian Pengeluaran per Kategori
-      </h2>
-      <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
-        <thead>
-          <tr style="background-color: #f3f4f6;">
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: left; font-weight: 600;">Kategori</th>
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; font-weight: 600;">Jumlah</th>
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; font-weight: 600;">Persentase</th>
+          <tr>
+            <td><strong>Total Donatur</strong></td>
+            <td class="text-right">${data.metrics.totalDonors}</td>
           </tr>
-        </thead>
-        <tbody>
-          ${data.expenseCategories.map(cat => `
-            <tr>
-              <td style="padding: 8px; border: 1px solid #e5e7eb;">${cat.category}</td>
-              <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: right;">${formatCurrency(cat.amount)}</td>
-              <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: right;">${cat.percentage}%</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
+        </table>
+      </div>
 
-    <!-- Project Progress -->
-    <div style="margin-bottom: 30px; page-break-inside: avoid;">
-      <h2 style="color: #1f2937; font-size: 16px; margin: 20px 0 15px 0; border-bottom: 2px solid #f3f4f6; padding-bottom: 8px;">
-        Progress Project Wakaf
-      </h2>
-      <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
-        <thead>
-          <tr style="background-color: #f3f4f6;">
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: left; font-weight: 600;">Nama Project</th>
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; font-weight: 600;">Target</th>
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; font-weight: 600;">Terkumpul</th>
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; font-weight: 600;">Progress</th>
-            <th style="padding: 8px; border: 1px solid #e5e7eb; text-align: center; font-weight: 600;">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${data.projectProgress.map(proj => {
-            const progress = Math.round((proj.collectedAmount / proj.targetAmount) * 100);
-            return `
+      <!-- Monthly Financial Data -->
+      <div class="section">
+        <h2>Data Keuangan Bulanan (2022-2026)</h2>
+        <table>
+          <thead>
             <tr>
-              <td style="padding: 8px; border: 1px solid #e5e7eb;">${proj.name}</td>
-              <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: right;">${formatCurrency(proj.targetAmount)}</td>
-              <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: right;">${formatCurrency(proj.collectedAmount)}</td>
-              <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: right; color: #1e40af; font-weight: 600;">
-                ${progress}%
-              </td>
-              <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: center; font-size: 9px;">
-                <span style="padding: 3px 8px; background-color: ${
-                  proj.status === 'active' ? '#dcfce7' : proj.status === 'completed' ? '#dbeafe' : '#fef3c7'
-                }; color: ${
-                  proj.status === 'active' ? '#16a34a' : proj.status === 'completed' ? '#0284c7' : '#d97706'
-                }; border-radius: 3px; display: inline-block;">
-                  ${proj.status === 'active' ? 'Aktif' : proj.status === 'completed' ? 'Selesai' : 'Menunggu'}
-                </span>
-              </td>
+              <th>Periode</th>
+              <th class="text-right">Pemasukan</th>
+              <th class="text-right">Pengeluaran</th>
+              <th class="text-right">Netto</th>
             </tr>
-          `;
-          }).join('')}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            ${data.financialData.map(item => `
+              <tr>
+                <td>${item.month}</td>
+                <td class="text-right">${formatCurrency(item.income)}</td>
+                <td class="text-right">${formatCurrency(item.expense)}</td>
+                <td class="text-right"><strong>${formatCurrency(item.income - item.expense)}</strong></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
 
-    <!-- Recent Donations -->
-    <div style="page-break-inside: avoid;">
-      <h2 style="color: #1f2937; font-size: 16px; margin: 20px 0 15px 0; border-bottom: 2px solid #f3f4f6; padding-bottom: 8px;">
-        Donasi Terbaru
-      </h2>
-      <table style="width: 100%; border-collapse: collapse; font-size: 9px;">
-        <thead>
-          <tr style="background-color: #f3f4f6;">
-            <th style="padding: 6px; border: 1px solid #e5e7eb; text-align: left; font-weight: 600;">ID</th>
-            <th style="padding: 6px; border: 1px solid #e5e7eb; text-align: left; font-weight: 600;">Wakif</th>
-            <th style="padding: 6px; border: 1px solid #e5e7eb; text-align: left; font-weight: 600;">Project</th>
-            <th style="padding: 6px; border: 1px solid #e5e7eb; text-align: right; font-weight: 600;">Nominal</th>
-            <th style="padding: 6px; border: 1px solid #e5e7eb; text-align: center; font-weight: 600;">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${data.donations.slice(0, 15).map(donation => `
+      <!-- Expense Categories -->
+      <div class="section">
+        <h2>Rincian Pengeluaran per Kategori</h2>
+        <table>
+          <thead>
             <tr>
-              <td style="padding: 6px; border: 1px solid #e5e7eb; font-family: monospace;">${donation.id}</td>
-              <td style="padding: 6px; border: 1px solid #e5e7eb;">${donation.wakifName}</td>
-              <td style="padding: 6px; border: 1px solid #e5e7eb; font-size: 8px;">${donation.projectName.substring(0, 20)}...</td>
-              <td style="padding: 6px; border: 1px solid #e5e7eb; text-align: right;">${formatCurrency(donation.amount)}</td>
-              <td style="padding: 6px; border: 1px solid #e5e7eb; text-align: center; font-size: 8px;">
-                ${donation.status === 'completed' ? '✓' : '⏳'}
-              </td>
+              <th>Kategori</th>
+              <th class="text-right">Jumlah</th>
+              <th class="text-right">Persentase</th>
             </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            ${data.expenseCategories.map(cat => `
+              <tr>
+                <td>${cat.category}</td>
+                <td class="text-right">${formatCurrency(cat.amount)}</td>
+                <td class="text-right">${cat.percentage}%</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
 
-    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e5e7eb; text-align: center; color: #9ca3af; font-size: 9px;">
-      <p>Laporan ini dibuat secara otomatis oleh Sistem Wakaf Konstruksi</p>
-      <p>Dokumen ini adalah milik resmi dan harus disimpan dengan aman</p>
-    </div>
+      <!-- Project Progress -->
+      <div class="section">
+        <h2>Progress Project Wakaf</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nama Project</th>
+              <th class="text-right">Target</th>
+              <th class="text-right">Terkumpul</th>
+              <th class="text-right">Progress</th>
+              <th class="text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.projectProgress.map(proj => {
+              const progress = Math.round((proj.collectedAmount / proj.targetAmount) * 100);
+              return `
+              <tr>
+                <td>${proj.name}</td>
+                <td class="text-right">${formatCurrency(proj.targetAmount)}</td>
+                <td class="text-right">${formatCurrency(proj.collectedAmount)}</td>
+                <td class="text-right"><strong>${progress}%</strong></td>
+                <td class="text-center">
+                  <span class="badge ${
+                    proj.status === 'active' ? 'badge-active' : 
+                    proj.status === 'completed' ? 'badge-completed' : 
+                    'badge-pending'
+                  }">
+                    ${proj.status === 'active' ? 'Aktif' : proj.status === 'completed' ? 'Selesai' : 'Menunggu'}
+                  </span>
+                </td>
+              </tr>
+            `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Recent Donations -->
+      <div class="section">
+        <h2>Donasi Terbaru</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Wakif</th>
+              <th>Project</th>
+              <th class="text-right">Nominal</th>
+              <th class="text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.donations.slice(0, 20).map(donation => `
+              <tr>
+                <td style="font-family: monospace; font-size: 8px;">${donation.id}</td>
+                <td>${donation.wakifName}</td>
+                <td style="font-size: 8px;">${donation.projectName}</td>
+                <td class="text-right">${formatCurrency(donation.amount)}</td>
+                <td class="text-center">${donation.status === 'completed' ? '✓ Selesai' : '⏳ Proses'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>Laporan ini dibuat secara otomatis oleh Sistem Wakaf Konstruksi</p>
+        <p>Dokumen ini adalah milik resmi dan harus disimpan dengan aman</p>
+      </div>
+    </body>
+    </html>
   `;
 
   container.innerHTML = htmlContent;
   document.body.appendChild(container);
 
-  // Trigger print dialog
-  window.print();
-
-  // Clean up
+  // Give browser time to render HTML properly
   setTimeout(() => {
-    document.body.removeChild(container);
-  }, 1000);
+    window.print();
+    // Clean up after print dialog closes
+    setTimeout(() => {
+      document.body.removeChild(container);
+    }, 1000);
+  }, 500);
 };
 
 /**

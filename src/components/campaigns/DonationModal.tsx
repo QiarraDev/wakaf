@@ -80,17 +80,6 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
             </div>
 
             <div className={styles.inputGroup}>
-              <label>Nama Wakif (Opsional)</label>
-              <input 
-                type="text" 
-                value={wakifName} 
-                onChange={(e) => setWakifName(e.target.value)}
-                placeholder="Hamba Allah"
-                className={styles.input}
-              />
-            </div>
-
-            <div className={styles.inputGroup}>
               <label>Nominal Lainnya (Rp)</label>
               <p>Masukkan jumlah custom sesuai kemampuan Anda</p>
               <input 
@@ -98,6 +87,17 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
                 value={amount || ''} 
                 onChange={(e) => setAmount(Number(e.target.value))}
                 placeholder="Masukkan nominal (minimum: Rp 10.000)"
+                className={styles.input}
+              />
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label>Nama Wakif (Opsional)</label>
+              <input 
+                type="text" 
+                value={wakifName} 
+                onChange={(e) => setWakifName(e.target.value)}
+                placeholder="Hamba Allah"
                 className={styles.input}
               />
             </div>

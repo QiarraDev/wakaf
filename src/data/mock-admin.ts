@@ -42,18 +42,63 @@ export const mockAdminMetrics = {
 };
 
 export const mockFinancialData: FinancialData[] = [
-  { month: 'Januari', income: 45000000, expense: 12000000 },
-  { month: 'Februari', income: 62500000, expense: 18500000 },
-  { month: 'Maret', income: 78900000, expense: 25000000 },
-  { month: 'April', income: 89200000, expense: 28500000 },
-  { month: 'Mei', income: 125600000, expense: 35000000 },
-  { month: 'Juni', income: 156200000, expense: 42000000 },
-  { month: 'Juli', income: 188000000, expense: 48500000 },
-  { month: 'Agustus', income: 145800000, expense: 38000000 },
-  { month: 'September', income: 132500000, expense: 35500000 },
-  { month: 'Oktober', income: 119800000, expense: 32000000 },
-  { month: 'November', income: 95600000, expense: 28000000 },
-  { month: 'Desember', income: 164400000, expense: 45000000 },
+  // 2022 Data
+  { month: '2022-01 (Januari)', income: 15000000, expense: 4000000 },
+  { month: '2022-02 (Februari)', income: 18500000, expense: 5200000 },
+  { month: '2022-03 (Maret)', income: 22000000, expense: 6500000 },
+  { month: '2022-04 (April)', income: 25500000, expense: 7200000 },
+  { month: '2022-05 (Mei)', income: 28000000, expense: 8000000 },
+  { month: '2022-06 (Juni)', income: 32000000, expense: 9500000 },
+  { month: '2022-07 (Juli)', income: 35500000, expense: 10000000 },
+  { month: '2022-08 (Agustus)', income: 38000000, expense: 11000000 },
+  { month: '2022-09 (September)', income: 42000000, expense: 12500000 },
+  { month: '2022-10 (Oktober)', income: 45500000, expense: 13000000 },
+  { month: '2022-11 (November)', income: 48000000, expense: 14000000 },
+  { month: '2022-12 (Desember)', income: 55000000, expense: 15500000 },
+  
+  // 2023 Data
+  { month: '2023-01 (Januari)', income: 35000000, expense: 10000000 },
+  { month: '2023-02 (Februari)', income: 42000000, expense: 12000000 },
+  { month: '2023-03 (Maret)', income: 50000000, expense: 14500000 },
+  { month: '2023-04 (April)', income: 58000000, expense: 16500000 },
+  { month: '2023-05 (Mei)', income: 65000000, expense: 18500000 },
+  { month: '2023-06 (Juni)', income: 75000000, expense: 21000000 },
+  { month: '2023-07 (Juli)', income: 85000000, expense: 24000000 },
+  { month: '2023-08 (Agustus)', income: 92000000, expense: 26000000 },
+  { month: '2023-09 (September)', income: 88000000, expense: 25000000 },
+  { month: '2023-10 (Oktober)', income: 82000000, expense: 23000000 },
+  { month: '2023-11 (November)', income: 78000000, expense: 22000000 },
+  { month: '2023-12 (Desember)', income: 105000000, expense: 30000000 },
+  
+  // 2024 Data
+  { month: '2024-01 (Januari)', income: 45000000, expense: 12000000 },
+  { month: '2024-02 (Februari)', income: 62500000, expense: 18500000 },
+  { month: '2024-03 (Maret)', income: 78900000, expense: 25000000 },
+  { month: '2024-04 (April)', income: 89200000, expense: 28500000 },
+  { month: '2024-05 (Mei)', income: 125600000, expense: 35000000 },
+  { month: '2024-06 (Juni)', income: 156200000, expense: 42000000 },
+  { month: '2024-07 (Juli)', income: 188000000, expense: 48500000 },
+  { month: '2024-08 (Agustus)', income: 145800000, expense: 38000000 },
+  { month: '2024-09 (September)', income: 132500000, expense: 35500000 },
+  { month: '2024-10 (Oktober)', income: 119800000, expense: 32000000 },
+  { month: '2024-11 (November)', income: 95600000, expense: 28000000 },
+  { month: '2024-12 (Desember)', income: 164400000, expense: 45000000 },
+  
+  // 2025 Data
+  { month: '2025-01 (Januari)', income: 125000000, expense: 35000000 },
+  { month: '2025-02 (Februari)', income: 135000000, expense: 38000000 },
+  { month: '2025-03 (Maret)', income: 145000000, expense: 40000000 },
+  { month: '2025-04 (April)', income: 155000000, expense: 42000000 },
+  { month: '2025-05 (Mei)', income: 165000000, expense: 45000000 },
+  { month: '2025-06 (Juni)', income: 175000000, expense: 48000000 },
+  
+  // 2026 Data (Jan-Jun, current year)
+  { month: '2026-01 (Januari)', income: 185000000, expense: 50000000 },
+  { month: '2026-02 (Februari)', income: 195000000, expense: 52000000 },
+  { month: '2026-03 (Maret)', income: 205000000, expense: 55000000 },
+  { month: '2026-04 (April)', income: 215000000, expense: 58000000 },
+  { month: '2026-05 (Mei)', income: 225000000, expense: 60000000 },
+  { month: '2026-06 (Juni)', income: 235000000, expense: 63000000 },
 ];
 
 export const mockProjectProgress: ProjectProgress[] = [
