@@ -7,6 +7,7 @@ import { MetricsCard } from '@/components/admin/MetricsCard';
 import { ProgressTimelineWithChrono } from '@/components/admin/ProgressTimelineWithChrono';
 import { FinancialReport } from '@/components/admin/FinancialReport';
 import { DonationReportTable } from '@/components/admin/DonationReportTable';
+import { FundTracker } from '@/components/admin/FundTracker';
 import { generatePDFReport, generateCSVReport } from '@/lib/pdf-export';
 import {
   mockAdminMetrics,
@@ -73,7 +74,17 @@ export default function AdminDashboardPage() {
         collectedAmount: proj.collectedAmount,
         status: proj.status,
       })),
-      donations: mockDonationReports,
+      donations: mockDonationReports.map(d => ({
+        id: d.id,
+        wakifName: d.wakifName,
+        projectName: d.projectName,
+        amount: d.amount,
+        date: d.date,
+        status: d.status,
+        paymentMethod: d.paymentMethod,
+        city: d.city,
+        verifiedAt: d.verifiedAt,
+      })),
     };
 
     generatePDFReport(exportData);
@@ -107,7 +118,17 @@ export default function AdminDashboardPage() {
         collectedAmount: proj.collectedAmount,
         status: proj.status,
       })),
-      donations: mockDonationReports,
+      donations: mockDonationReports.map(d => ({
+        id: d.id,
+        wakifName: d.wakifName,
+        projectName: d.projectName,
+        amount: d.amount,
+        date: d.date,
+        status: d.status,
+        paymentMethod: d.paymentMethod,
+        city: d.city,
+        verifiedAt: d.verifiedAt,
+      })),
     };
 
     generateCSVReport(exportData);
@@ -190,6 +211,11 @@ export default function AdminDashboardPage() {
           selectedYear={selectedYear}
           onYearChange={setSelectedYear}
         />
+      </section>
+
+      {/* Fund Tracking Section */}
+      <section className={styles.progressSection}>
+        <FundTracker reports={mockDonationReports} />
       </section>
 
       {/* Project Progress Section */}

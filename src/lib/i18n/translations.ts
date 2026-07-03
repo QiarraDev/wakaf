@@ -108,6 +108,13 @@ export const translations = {
       loading: 'Memuat...',
       error: 'Terjadi kesalahan',
     },
+    // Categories
+    categories: {
+      Mosque: 'Masjid',
+      Education: 'Pendidikan',
+      Water: 'Air Bersih',
+      Health: 'Kesehatan',
+    },
   },
   en: {
     // Navigation
@@ -217,6 +224,13 @@ export const translations = {
       loading: 'Loading...',
       error: 'An error occurred',
     },
+    // Categories
+    categories: {
+      Mosque: 'Mosque',
+      Education: 'Education',
+      Water: 'Water',
+      Health: 'Health',
+    },
   },
   ar: {
     // Navigation
@@ -325,6 +339,13 @@ export const translations = {
       gagal: 'فشل',
       loading: 'جاري التحميل...',
       error: 'حدث خطأ ما',
+    },
+    // Categories
+    categories: {
+      Mosque: 'مسجد',
+      Education: 'تعليم',
+      Water: 'مياه',
+      Health: 'صحة',
     },
   },
 } as const;

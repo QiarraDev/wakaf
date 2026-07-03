@@ -33,6 +33,9 @@ interface PDFExportData {
     amount: number;
     date: string;
     status: string;
+    paymentMethod?: string;
+    city?: string;
+    verifiedAt?: string;
   }>;
 }
 
@@ -233,15 +236,62 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
           color: #d97706;
         }
         
-        .footer {
-          margin-top: 50px;
-          padding-top: 20px;
-          border-top: 2px solid #e5e7eb;
-          text-align: center;
-          color: #9ca3af;
-          font-size: 9px;
+        .badge-failed {
+          background-color: #fee2e2;
+          color: #dc2626;
         }
-        
+
+        .fund-track-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          margin-bottom: 20px;
+        }
+
+        .fund-track-card {
+          padding: 12px;
+          border-radius: 8px;
+          border: 1px solid #e5e7eb;
+          background: #f8fafc;
+        }
+
+        .fund-track-bank {
+          font-size: 13px;
+          font-weight: 800;
+          color: #1e40af;
+          margin-bottom: 4px;
+        }
+
+        .fund-track-count {
+          font-size: 9px;
+          color: #9ca3af;
+          margin-bottom: 4px;
+        }
+
+        .fund-track-amount {
+          font-size: 12px;
+          font-weight: 700;
+          color: #111827;
+        }
+
+        .fund-track-bar-wrap {
+          height: 4px;
+          background: #e5e7eb;
+          border-radius: 4px;
+          margin-top: 6px;
+          overflow: hidden;
+        }
+
+        .fund-track-bar {
+          height: 100%;
+          border-radius: 4px;
+          background: linear-gradient(90deg, #1e40af, #3b82f6);
+        }
+
+        .status-verified { color: #16a34a; font-weight: 700; }
+        .status-pending  { color: #d97706; font-weight: 700; }
+        .status-failed   { color: #dc2626; font-weight: 700; }
+
         strong {
           font-weight: 600;
         }
@@ -363,27 +413,58 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
       </div>
 
       <div class="section">
-        <h2>Donasi Terbaru</h2>
+        <h2>Donasi & Tracking Aliran Dana</h2>
+        ${(() => {
+          // Payment method breakdown
+          const pmMap: Record<string, { count: number; total: number; completed: number }> = {};
+          data.donations.forEach(d => {
+            const pm = d.paymentMethod || 'Lainnya';
+            if (!pmMap[pm]) pmMap[pm] = { count: 0, total: 0, completed: 0 };
+            pmMap[pm].count++;
+            pmMap[pm].total += d.amount;
+            if (d.status === 'completed') pmMap[pm].completed += d.amount;
+          });
+          const grandTotal = Object.values(pmMap).reduce((s, v) => s + v.total, 0);
+          const cards = Object.entries(pmMap).map(([pm, v]) => `
+            <div class="fund-track-card">
+              <div class="fund-track-bank">${pm}</div>
+              <div class="fund-track-count">${v.count} transaksi</div>
+              <div class="fund-track-amount">${formatCurrency(v.completed)}</div>
+              <div class="fund-track-bar-wrap"><div class="fund-track-bar" style="width:${grandTotal ? Math.round((v.total/grandTotal)*100) : 0}%"></div></div>
+            </div>
+          `).join('');
+          return `<div class="fund-track-grid">${cards}</div>`;
+        })()}
         <table>
           <thead>
             <tr>
               <th>ID</th>
               <th>Wakif</th>
-              <th>Project</th>
+              <th>Program</th>
+              <th>Metode</th>
+              <th>Kota</th>
               <th class="text-right">Nominal</th>
-              <th class="text-center">Status</th>
+              <th>Tgl Donasi</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            ${data.donations.slice(0, 25).map(donation => `
+            ${data.donations.slice(0, 50).map(d => {
+              const dateStr = d.date ? new Date(d.date).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+              const statusClass = d.status === 'completed' ? 'status-verified' : d.status === 'failed' ? 'status-failed' : 'status-pending';
+              const statusLabel = d.status === 'completed' ? '✓ Terverifikasi' : d.status === 'failed' ? '✗ Gagal' : '⏳ Menunggu';
+              return `
               <tr>
-                <td style="font-family: monospace; font-size: 9px;">${donation.id}</td>
-                <td>${donation.wakifName}</td>
-                <td>${donation.projectName}</td>
-                <td class="text-right">${formatCurrency(donation.amount)}</td>
-                <td class="text-center">${donation.status === 'completed' ? '✓ Selesai' : '⏳ Proses'}</td>
-              </tr>
-            `).join('')}
+                <td style="font-family:monospace;font-size:8px">${d.id}</td>
+                <td>${d.wakifName}</td>
+                <td style="font-size:9px">${d.projectName}</td>
+                <td><strong>${d.paymentMethod || '—'}</strong></td>
+                <td>${d.city || '—'}</td>
+                <td class="text-right">${formatCurrency(d.amount)}</td>
+                <td style="font-size:9px">${dateStr}</td>
+                <td class="${statusClass}" style="font-size:9px">${statusLabel}</td>
+              </tr>`;
+            }).join('')}
           </tbody>
         </table>
       </div>

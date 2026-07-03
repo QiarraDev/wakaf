@@ -1,12 +1,15 @@
+"use client";
+
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { mockCampaigns } from '@/data/mock-campaigns';
 import { formatCurrency, calculateProgress } from '@/lib/utils';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from '../page.module.css';
 
 export default function CampaignsPage() {
-  // Note: Translation will be handled client-side due to i18n context
+  const { t } = useLanguage();
   return (
     <div className={styles.container} style={{ paddingTop: '4rem' }}>
       <div className={styles.sectionHeader}>
@@ -20,9 +23,9 @@ export default function CampaignsPage() {
             <Card key={campaign.id} className={styles.campaignCard}>
               <div 
                 className={styles.cardImage} 
-                style={{ backgroundImage: `url(${campaign.imageUrl})` }}
+                style={{ backgroundImage: `url('${campaign.imageUrl}')` }}
               >
-                <span className={styles.categoryBadge}>{campaign.category}</span>
+                <span className={styles.categoryBadge}>{t(`categories.${campaign.category}`)}</span>
               </div>
               <div className={styles.cardContent}>
                 <h3>{campaign.title}</h3>
