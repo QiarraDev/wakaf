@@ -14,14 +14,144 @@
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
   border-bottom: 2px solid #f3f4f6;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .reportTitle {
   font-size: 1.5rem;
   font-weight: 700;
   color: #1f2937;
+  flex: 1;
+  min-width: 250px;
 }
 
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Year Filter Dropdown */
+.yearFilterWrapper {
+  position: relative;
+}
+
+.yearDropdownBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+  border: 2px solid #1e40af;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: #1e40af;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.yearDropdownBtn:hover {
+  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+  border-color: #1e3a8a;
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15);
+  transform: translateY(-2px);
+}
+
+.yearDropdownBtn:active {
+  transform: translateY(0);
+}
+
+.yearIcon {
+  font-size: 1.125rem;
+}
+
+.yearLabel {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.yearChevron {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.yearDropdownBtn[aria-expanded="true"] .yearChevron {
+  transform: rotate(180deg);
+}
+
+/* Year Dropdown Menu */
+.yearDropdownMenu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  background: white;
+  border: 2px solid #1e40af;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  min-width: 180px;
+  overflow: hidden;
+  animation: slideDown 0.25s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.yearMenuItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.9375rem;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  gap: 0.75rem;
+}
+
+.yearMenuItem:hover {
+  background-color: #f0f9ff;
+  color: #1e40af;
+}
+
+.yearMenuItem:not(:last-child) {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.yearMenuItemActive {
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-weight: 700;
+}
+
+.yearMenuItemCheckmark {
+  width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e40af;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Report Controls */
 .reportControls {
   display: flex;
   gap: 1rem;

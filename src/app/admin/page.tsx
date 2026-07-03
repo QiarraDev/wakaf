@@ -28,6 +28,7 @@ interface Contribution {
 export default function AdminDashboardPage() {
   const [allContributions, setAllContributions] = useState<Contribution[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedYear, setSelectedYear] = useState(2026);
 
   useEffect(() => {
     // In a real app, this would be an API call fetching all users' data.
@@ -40,11 +41,17 @@ export default function AdminDashboardPage() {
   }, []);
 
   const handleExportPDF = () => {
-    const totalExpense = mockFinancialData.reduce((sum, item) => sum + item.expense, 0);
-    const totalIncome = mockFinancialData.reduce((sum, item) => sum + item.income, 0);
+    // Filter data berdasarkan tahun yang dipilih
+    const filteredData = mockFinancialData.filter(item => {
+      const yearMatch = item.month.match(/(\d{4})-\d{2}/);
+      return yearMatch && parseInt(yearMatch[1]) === selectedYear;
+    });
+
+    const totalExpense = filteredData.reduce((sum, item) => sum + item.expense, 0);
+    const totalIncome = filteredData.reduce((sum, item) => sum + item.income, 0);
     
     const exportData = {
-      title: 'Laporan Keuangan & Progress Wakaf Konstruksi',
+      title: `Laporan Keuangan & Progress Wakaf Konstruksi - Tahun ${selectedYear}`,
       generatedDate: new Date().toLocaleDateString('id-ID', {
         weekday: 'long',
         year: 'numeric',
@@ -58,7 +65,7 @@ export default function AdminDashboardPage() {
         activeProjects: mockAdminMetrics.activeProjects,
         totalDonors: mockAdminMetrics.totalDonors,
       },
-      financialData: mockFinancialData,
+      financialData: filteredData,
       expenseCategories: expenseCategories,
       projectProgress: mockProjectProgress.map(proj => ({
         name: proj.name,
@@ -73,11 +80,17 @@ export default function AdminDashboardPage() {
   };
 
   const handleExportCSV = () => {
-    const totalExpense = mockFinancialData.reduce((sum, item) => sum + item.expense, 0);
-    const totalIncome = mockFinancialData.reduce((sum, item) => sum + item.income, 0);
+    // Filter data berdasarkan tahun yang dipilih
+    const filteredData = mockFinancialData.filter(item => {
+      const yearMatch = item.month.match(/(\d{4})-\d{2}/);
+      return yearMatch && parseInt(yearMatch[1]) === selectedYear;
+    });
+
+    const totalExpense = filteredData.reduce((sum, item) => sum + item.expense, 0);
+    const totalIncome = filteredData.reduce((sum, item) => sum + item.income, 0);
     
     const exportData = {
-      title: 'Laporan Keuangan & Progress Wakaf Konstruksi',
+      title: `Laporan Keuangan & Progress Wakaf Konstruksi - Tahun ${selectedYear}`,
       generatedDate: new Date().toLocaleDateString('id-ID'),
       metrics: {
         totalIncome: totalIncome,
@@ -86,7 +99,7 @@ export default function AdminDashboardPage() {
         activeProjects: mockAdminMetrics.activeProjects,
         totalDonors: mockAdminMetrics.totalDonors,
       },
-      financialData: mockFinancialData,
+      financialData: filteredData,
       expenseCategories: expenseCategories,
       projectProgress: mockProjectProgress.map(proj => ({
         name: proj.name,
@@ -174,6 +187,8 @@ export default function AdminDashboardPage() {
           financialData={mockFinancialData}
           expenseCategories={expenseCategories}
           onExportPDF={handleExportPDF}
+          selectedYear={selectedYear}
+          onYearChange={setSelectedYear}
         />
       </section>
 

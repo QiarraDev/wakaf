@@ -37,168 +37,222 @@ interface PDFExportData {
 }
 
 /**
- * Export financial data as PDF using browser's print capability
- * This is a client-side approach compatible with Next.js
+ * Export financial data as PDF using iframe and print capability
+ * This is a more reliable approach that ensures content is properly rendered
  */
 export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
-  // Create a temporary container
-  const container = document.createElement('div');
-  container.style.position = 'absolute';
-  container.style.left = '-9999px';
-  container.style.width = '210mm';
-  container.style.minHeight = '297mm';
-  container.style.padding = '20mm';
-  container.style.backgroundColor = 'white';
-  container.style.fontFamily = 'Arial, sans-serif';
-  container.style.fontSize = '10px';
-  container.style.lineHeight = '1.5';
-  container.style.color = '#1f2937';
+  // Create iframe for better isolation and rendering
+  const iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
 
-  // Create HTML content
+  const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+  if (!iframeDoc) {
+    console.error('Failed to access iframe document');
+    return;
+  }
+
+  // Build complete HTML document
   const htmlContent = `
-    <html>
+    <!DOCTYPE html>
+    <html lang="id">
     <head>
       <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Laporan Keuangan Wakaf Konstruksi</title>
       <style>
-        @media print {
-          body { margin: 0; padding: 0; }
-          .page-break { page-break-after: always; }
-          table { page-break-inside: avoid; }
-        }
-        body {
-          font-family: Arial, sans-serif;
-          font-size: 10px;
-          line-height: 1.4;
-          color: #1f2937;
+        * {
           margin: 0;
-          padding: 20mm;
+          padding: 0;
+          box-sizing: border-box;
         }
+        
+        @page {
+          size: A4;
+          margin: 20mm;
+        }
+        
+        @media print {
+          body {
+            margin: 0;
+            padding: 0;
+          }
+          .no-print {
+            display: none;
+          }
+          table {
+            page-break-inside: avoid;
+          }
+          .section {
+            page-break-inside: avoid;
+          }
+        }
+        
+        body {
+          font-family: 'Segoe UI', Arial, sans-serif;
+          font-size: 11px;
+          line-height: 1.5;
+          color: #1f2937;
+          padding: 20px;
+          background: white;
+        }
+        
         .header {
           margin-bottom: 30px;
           border-bottom: 3px solid #1e40af;
           padding-bottom: 15px;
         }
+        
         .header h1 {
           color: #1e40af;
-          margin: 0 0 5px 0;
-          font-size: 22px;
+          font-size: 24px;
+          margin-bottom: 8px;
         }
+        
         .header p {
           color: #6b7280;
-          margin: 5px 0 0 0;
-          font-size: 9px;
+          font-size: 11px;
         }
+        
         h2 {
           color: #1f2937;
-          font-size: 14px;
-          margin: 20px 0 12px 0;
-          border-bottom: 2px solid #f3f4f6;
-          padding-bottom: 6px;
+          font-size: 16px;
+          margin: 25px 0 15px 0;
+          border-bottom: 2px solid #e5e7eb;
+          padding-bottom: 8px;
         }
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-bottom: 15px;
-        }
-        th {
-          background-color: #f3f4f6;
-          padding: 8px;
-          border: 1px solid #e5e7eb;
-          text-align: left;
-          font-weight: 600;
-          font-size: 9px;
-        }
-        td {
-          padding: 6px 8px;
-          border: 1px solid #e5e7eb;
-          font-size: 9px;
-        }
-        tr:nth-child(even) {
-          background-color: #f9fafb;
-        }
+        
         .section {
-          margin-bottom: 25px;
-          page-break-inside: avoid;
+          margin-bottom: 30px;
         }
+        
         .summary-cards {
           display: grid;
           grid-template-columns: 1fr 1fr 1fr;
-          gap: 10px;
+          gap: 12px;
           margin-bottom: 20px;
-          page-break-inside: avoid;
         }
+        
         .summary-card {
-          padding: 12px;
+          padding: 15px;
+          border-radius: 6px;
           border: 1px solid #e5e7eb;
-          border-radius: 4px;
         }
+        
         .summary-card.income {
           background-color: #f0fdf4;
           border-color: #86efac;
         }
+        
         .summary-card.expense {
           background-color: #fef3c7;
           border-color: #fcd34d;
         }
+        
         .summary-card.net {
           background-color: #dbeafe;
           border-color: #7dd3fc;
         }
+        
         .summary-label {
-          font-size: 8px;
+          font-size: 10px;
           color: #6b7280;
-          margin-bottom: 4px;
           font-weight: 600;
+          margin-bottom: 6px;
         }
+        
         .summary-value {
-          font-size: 14px;
+          font-size: 18px;
           font-weight: 700;
           color: #1f2937;
         }
-        .footer {
-          margin-top: 40px;
-          padding-top: 15px;
-          border-top: 2px solid #e5e7eb;
-          text-align: center;
-          color: #9ca3af;
-          font-size: 8px;
+        
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 20px;
+          background: white;
         }
+        
+        thead {
+          background-color: #f3f4f6;
+        }
+        
+        th {
+          padding: 10px;
+          text-align: left;
+          font-weight: 600;
+          font-size: 10px;
+          border: 1px solid #d1d5db;
+          color: #374151;
+        }
+        
+        td {
+          padding: 8px 10px;
+          border: 1px solid #e5e7eb;
+          font-size: 10px;
+        }
+        
+        tbody tr:nth-child(even) {
+          background-color: #f9fafb;
+        }
+        
+        tbody tr:hover {
+          background-color: #f3f4f6;
+        }
+        
         .text-right {
           text-align: right;
         }
+        
         .text-center {
           text-align: center;
         }
+        
         .badge {
           display: inline-block;
-          padding: 2px 6px;
-          border-radius: 3px;
-          font-size: 7px;
+          padding: 4px 8px;
+          border-radius: 4px;
+          font-size: 8px;
           font-weight: 600;
+          white-space: nowrap;
         }
+        
         .badge-active {
           background-color: #dcfce7;
           color: #16a34a;
         }
+        
         .badge-completed {
           background-color: #dbeafe;
           color: #0284c7;
         }
+        
         .badge-pending {
           background-color: #fef3c7;
           color: #d97706;
         }
+        
+        .footer {
+          margin-top: 50px;
+          padding-top: 20px;
+          border-top: 2px solid #e5e7eb;
+          text-align: center;
+          color: #9ca3af;
+          font-size: 9px;
+        }
+        
+        strong {
+          font-weight: 600;
+        }
       </style>
     </head>
     <body>
-      <!-- Header -->
       <div class="header">
         <h1>${data.title}</h1>
         <p>Tanggal Laporan: ${data.generatedDate}</p>
       </div>
 
-      <!-- Key Metrics Section -->
       <div class="section">
         <h2>Ringkasan Metrik Utama</h2>
         <div class="summary-cards">
@@ -227,7 +281,6 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
         </table>
       </div>
 
-      <!-- Monthly Financial Data -->
       <div class="section">
         <h2>Data Keuangan Bulanan (2022-2026)</h2>
         <table>
@@ -252,7 +305,6 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
         </table>
       </div>
 
-      <!-- Expense Categories -->
       <div class="section">
         <h2>Rincian Pengeluaran per Kategori</h2>
         <table>
@@ -275,7 +327,6 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
         </table>
       </div>
 
-      <!-- Project Progress -->
       <div class="section">
         <h2>Progress Project Wakaf</h2>
         <table>
@@ -291,21 +342,19 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
           <tbody>
             ${data.projectProgress.map(proj => {
               const progress = Math.round((proj.collectedAmount / proj.targetAmount) * 100);
+              const badgeClass = proj.status === 'active' ? 'badge-active' : 
+                                proj.status === 'completed' ? 'badge-completed' : 
+                                'badge-pending';
+              const statusText = proj.status === 'active' ? 'Aktif' : 
+                                proj.status === 'completed' ? 'Selesai' : 
+                                'Menunggu';
               return `
               <tr>
                 <td>${proj.name}</td>
                 <td class="text-right">${formatCurrency(proj.targetAmount)}</td>
                 <td class="text-right">${formatCurrency(proj.collectedAmount)}</td>
                 <td class="text-right"><strong>${progress}%</strong></td>
-                <td class="text-center">
-                  <span class="badge ${
-                    proj.status === 'active' ? 'badge-active' : 
-                    proj.status === 'completed' ? 'badge-completed' : 
-                    'badge-pending'
-                  }">
-                    ${proj.status === 'active' ? 'Aktif' : proj.status === 'completed' ? 'Selesai' : 'Menunggu'}
-                  </span>
-                </td>
+                <td class="text-center"><span class="badge ${badgeClass}">${statusText}</span></td>
               </tr>
             `;
             }).join('')}
@@ -313,7 +362,6 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
         </table>
       </div>
 
-      <!-- Recent Donations -->
       <div class="section">
         <h2>Donasi Terbaru</h2>
         <table>
@@ -327,11 +375,11 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
             </tr>
           </thead>
           <tbody>
-            ${data.donations.slice(0, 20).map(donation => `
+            ${data.donations.slice(0, 25).map(donation => `
               <tr>
-                <td style="font-family: monospace; font-size: 8px;">${donation.id}</td>
+                <td style="font-family: monospace; font-size: 9px;">${donation.id}</td>
                 <td>${donation.wakifName}</td>
-                <td style="font-size: 8px;">${donation.projectName}</td>
+                <td>${donation.projectName}</td>
                 <td class="text-right">${formatCurrency(donation.amount)}</td>
                 <td class="text-center">${donation.status === 'completed' ? '✓ Selesai' : '⏳ Proses'}</td>
               </tr>
@@ -340,26 +388,32 @@ export const generatePDFReport = async (data: PDFExportData): Promise<void> => {
         </table>
       </div>
 
-      <!-- Footer -->
       <div class="footer">
         <p>Laporan ini dibuat secara otomatis oleh Sistem Wakaf Konstruksi</p>
         <p>Dokumen ini adalah milik resmi dan harus disimpan dengan aman</p>
+        <p style="margin-top: 10px; font-size: 8px;">${new Date().toLocaleString('id-ID')}</p>
       </div>
     </body>
     </html>
   `;
 
-  container.innerHTML = htmlContent;
-  document.body.appendChild(container);
+  // Write content to iframe
+  iframeDoc.open();
+  iframeDoc.write(htmlContent);
+  iframeDoc.close();
 
-  // Give browser time to render HTML properly
-  setTimeout(() => {
-    window.print();
-    // Clean up after print dialog closes
+  // Wait for content to fully load, then print
+  iframe.onload = () => {
     setTimeout(() => {
-      document.body.removeChild(container);
-    }, 1000);
-  }, 500);
+      iframe.focus();
+      iframe.contentWindow?.print();
+    }, 250);
+  };
+
+  // Cleanup after print
+  setTimeout(() => {
+    document.body.removeChild(iframe);
+  }, 2000);
 };
 
 /**

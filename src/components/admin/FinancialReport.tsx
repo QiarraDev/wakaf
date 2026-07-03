@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { formatCurrency } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import type { FinancialData } from '@/data/mock-admin';
@@ -10,22 +10,35 @@ interface FinancialReportProps {
   financialData: FinancialData[];
   expenseCategories: Array<{ category: string; amount: number; percentage: number }>;
   onExportPDF?: () => void;
+  selectedYear?: number;
+  onYearChange?: (year: number) => void;
 }
+
+const AVAILABLE_YEARS = [2022, 2023, 2024, 2025, 2026];
 
 export const FinancialReport: React.FC<FinancialReportProps> = ({
   financialData,
   expenseCategories,
   onExportPDF,
+  selectedYear = 2026,
+  onYearChange,
 }) => {
   const reportRef = useRef<HTMLDivElement>(null);
+  const [isYearMenuOpen, setIsYearMenuOpen] = useState(false);
 
-  const totalIncome = financialData.reduce((sum, item) => sum + item.income, 0);
-  const totalExpense = financialData.reduce((sum, item) => sum + item.expense, 0);
+  // Filter data berdasarkan tahun
+  const filteredData = financialData.filter(item => {
+    const yearMatch = item.month.match(/(\d{4})-\d{2}/);
+    return yearMatch && parseInt(yearMatch[1]) === selectedYear;
+  });
+
+  const totalIncome = filteredData.reduce((sum, item) => sum + item.income, 0);
+  const totalExpense = filteredData.reduce((sum, item) => sum + item.expense, 0);
   const netIncome = totalIncome - totalExpense;
 
-  // Normalize untuk chart (jika ada data kosong atau anomali)
   const maxValue = Math.max(
-    ...financialData.map(item => Math.max(item.income, item.expense))
+    ...filteredData.map(item => Math.max(item.income, item.expense)),
+    1
   );
 
   const handlePrint = () => {
@@ -36,41 +49,82 @@ export const FinancialReport: React.FC<FinancialReportProps> = ({
     if (onExportPDF) {
       onExportPDF();
     } else {
-      // Fallback ke print
       handlePrint();
     }
+  };
+
+  const handleYearSelect = (year: number) => {
+    onYearChange?.(year);
+    setIsYearMenuOpen(false);
   };
 
   return (
     <div className={styles.reportContainer} ref={reportRef}>
       <div className={styles.reportHeader}>
         <h2 className={styles.reportTitle}>Laporan Keuangan & Pengeluaran</h2>
-        <div className={styles.reportControls}>
-          <Button 
-            variant="primary" 
-            size="sm"
-            onClick={handleExportPDF}
-          >
-            📥 Export PDF
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={handlePrint}
-          >
-            🖨️ Cetak
-          </Button>
+        <div className={styles.headerRight}>
+          {/* Year Dropdown */}
+          <div className={styles.yearFilterWrapper}>
+            <button
+              className={styles.yearDropdownBtn}
+              onClick={() => setIsYearMenuOpen(!isYearMenuOpen)}
+            >
+              <span className={styles.yearIcon}>📅</span>
+              <span className={styles.yearLabel}>Tahun {selectedYear}</span>
+              <span className={styles.yearChevron}>▼</span>
+            </button>
+            
+            {isYearMenuOpen && (
+              <div className={styles.yearDropdownMenu}>
+                {AVAILABLE_YEARS.map(year => (
+                  <button
+                    key={year}
+                    className={`${styles.yearMenuItem} ${
+                      year === selectedYear ? styles.yearMenuItemActive : ''
+                    }`}
+                    onClick={() => handleYearSelect(year)}
+                  >
+                    <span className={styles.yearMenuItemCheckmark}>
+                      {year === selectedYear ? '✓' : ''}
+                    </span>
+                    Tahun {year}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Export Buttons */}
+          <div className={styles.reportControls}>
+            <Button 
+              variant="primary" 
+              size="sm"
+              onClick={handleExportPDF}
+            >
+              📥 Export PDF
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handlePrint}
+            >
+              🖨️ Cetak
+            </Button>
+          </div>
         </div>
       </div>
 
       {/* Chart Section */}
       <div className={styles.chartSection}>
-        <h3 className={styles.chartTitle}>Pemasukan & Pengeluaran Bulanan</h3>
+        <h3 className={styles.chartTitle}>Pemasukan & Pengeluaran - {selectedYear}</h3>
         <div className={styles.chartContainer}>
           <div className={styles.chartBars}>
-            {financialData.map((item, idx) => {
+            {filteredData.map((item, idx) => {
               const incomeHeight = (item.income / maxValue) * 100;
               const expenseHeight = (item.expense / maxValue) * 100;
+              const monthMatch = item.month.match(/\d{4}-(\d{2})/);
+              const monthNum = monthMatch ? parseInt(monthMatch[1]) : idx + 1;
+              const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
               return (
                 <div key={idx} className={styles.chartBarGroup}>
@@ -88,7 +142,7 @@ export const FinancialReport: React.FC<FinancialReportProps> = ({
                       data-value={formatCurrency(item.expense)}
                     />
                   </div>
-                  <div className={styles.monthLabel}>{item.month.substring(0, 3)}</div>
+                  <div className={styles.monthLabel}>{months[monthNum - 1]}</div>
                 </div>
               );
             })}
