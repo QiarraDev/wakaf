@@ -13,6 +13,8 @@ export interface Campaign {
   targetAmount: number;
   currentAmount: number;
   imageUrl: string;
+  bgColor: string;
+  bgGradient: string;
   category: 'Mosque' | 'Education' | 'Water' | 'Health';
   daysLeft: number;
   pbgStatus: 'Verified' | 'Pending' | 'Not Required';
@@ -26,7 +28,9 @@ export const mockCampaigns: Campaign[] = [
     description: 'Bantu kami membangun masjid untuk memfasilitasi ibadah warga desa Sukamaju. Masjid ini akan menjadi pusat kegiatan keagamaan dan sosial.',
     targetAmount: 500000000,
     currentAmount: 320500000,
-    imageUrl: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1564769666745-cb7da0d4c1e5?w=800&h=400&fit=crop',
+    bgColor: '#1e40af',
+    bgGradient: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)',
     category: 'Mosque',
     daysLeft: 45,
     pbgStatus: 'Verified',
@@ -42,7 +46,9 @@ export const mockCampaigns: Campaign[] = [
     description: 'Banyak warga di pelosok NTT kesulitan mendapatkan air bersih. Mari berwakaf untuk pembangunan sumur air bersih yang mengalirkan manfaat tiada henti.',
     targetAmount: 150000000,
     currentAmount: 85000000,
-    imageUrl: 'https://images.unsplash.com/photo-1559027615-cd1628902ec4?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1559027615-cd2628902d4a?w=800&h=400&fit=crop',
+    bgColor: '#0f766e',
+    bgGradient: 'linear-gradient(135deg, #0f766e 0%, #10b981 100%)',
     category: 'Water',
     daysLeft: 12,
     pbgStatus: 'Not Required',
@@ -58,7 +64,9 @@ export const mockCampaigns: Campaign[] = [
     description: 'Wakaf pembebasan lahan dan pembangunan fasilitas pendidikan untuk anak-anak yatim agar mereka mendapatkan akses pendidikan yang layak dan berkualitas.',
     targetAmount: 1200000000,
     currentAmount: 150000000,
-    imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1427504494875-531f09a9b57b?w=800&h=400&fit=crop',
+    bgColor: '#f59e0b',
+    bgGradient: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)',
     category: 'Education',
     daysLeft: 90,
     pbgStatus: 'Verified',
@@ -74,7 +82,9 @@ export const mockCampaigns: Campaign[] = [
     description: 'Wakaf alat kesehatan dan renovasi klinik gratis untuk melayani kaum dhuafa yang tidak mampu membayar biaya pengobatan.',
     targetAmount: 300000000,
     currentAmount: 290000000,
-    imageUrl: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1631217314830-e63d5dbd0a71?w=800&h=400&fit=crop',
+    bgColor: '#dc2626',
+    bgGradient: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)',
     category: 'Health',
     daysLeft: 5,
     pbgStatus: 'Pending',
@@ -89,7 +99,9 @@ export const mockCampaigns: Campaign[] = [
     description: 'Wakaf pembangunan rumah sakit umum untuk melayani masyarakat daerah terpencil yang belum memiliki fasilitas kesehatan memadai. Dilengkapi dengan ruang rawat inap, ICU, dan fasilitas pendukung modern.',
     targetAmount: 2500000000,
     currentAmount: 450000000,
-    imageUrl: 'https://images.unsplash.com/photo-1576091160550-112173f7f869?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=400&fit=crop',
+    bgColor: '#6366f1',
+    bgGradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
     category: 'Health',
     daysLeft: 120,
     pbgStatus: 'Verified',

@@ -7,6 +7,7 @@ import styles from './page.module.css';
 
 export default function Home() {
   const featuredCampaigns = mockCampaigns.slice(0, 3);
+  // Note: Translation will be handled in client-side component
 
   return (
     <div className={styles.container}>

@@ -6,6 +6,7 @@ import { formatCurrency, calculateProgress } from '@/lib/utils';
 import styles from '../page.module.css';
 
 export default function CampaignsPage() {
+  // Note: Translation will be handled client-side due to i18n context
   return (
     <div className={styles.container} style={{ paddingTop: '4rem' }}>
       <div className={styles.sectionHeader}>

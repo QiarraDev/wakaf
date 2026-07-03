@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import type { Milestone } from '@/data/mock-campaigns';
 import styles from './CampaignTimeline.module.css';
 import { formatCurrency } from '@/lib/utils';
+import { useLanguage } from '@/context/LanguageContext';
 
 // Dynamically import Chrono dengan ssr: false
 const Chrono = dynamic(
@@ -28,6 +29,7 @@ export const CampaignTimeline: React.FC<CampaignTimelineProps> = ({
   campaignTitle,
   milestones,
 }) => {
+  const { t } = useLanguage();
   // Format data untuk React-Chrono
   const chronoItems = useMemo(() => {
     return milestones.map((milestone) => ({
@@ -92,11 +94,9 @@ Setiap tahapan diawasi ketat dengan sistem escrow untuk memastikan proyek berjal
         <div className={styles.escrowCard}>
           <div className={styles.escrowIcon}>🔒</div>
           <div className={styles.escrowContent}>
-            <h4>Sistem Escrow per Milestone</h4>
+            <h4>{t('campaign.sistimEscrow')}</h4>
             <p>
-              Dana wakaf Anda tidak langsung diberikan kepada kontraktor. Setiap tahapan 
-              memiliki target khusus dan sebelum dana dicairkan, milestone harus terverifikasi 
-              oleh tim nazhir kami.
+              {t('campaign.escrowDesc')}
             </p>
           </div>
         </div>

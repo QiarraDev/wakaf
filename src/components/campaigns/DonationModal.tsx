@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styles from './DonationModal.module.css';
 import { Button } from '@/components/ui/Button';
 import { CertificateModal } from './CertificateModal';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface DonationModalProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface DonationModalProps {
 }
 
 export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, campaignTitle }) => {
+  const { t } = useLanguage();
   const [amount, setAmount] = useState<number>(0);
   const [wakifName, setWakifName] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -33,7 +35,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
         id: Math.random().toString(36).substr(2, 9),
         campaignTitle,
         amount,
-        wakifName: wakifName.trim() || 'Hamba Allah',
+        wakifName: wakifName.trim() || t('donation.placeholder'),
         date: new Date().toISOString()
       });
       localStorage.setItem('wakaf_contributions', JSON.stringify(contributions));
@@ -55,17 +57,17 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
         {isSuccess ? (
           <div className={styles.successState}>
             <div className={styles.checkIcon}>✓</div>
-            <h3>Alhamdulillah!</h3>
-            <p>Wakaf Anda sebesar Rp {amount.toLocaleString('id-ID')} untuk <strong>{campaignTitle}</strong> telah berhasil disalurkan.</p>
+            <h3>{t('donation.success')}</h3>
+            <p>{t('donation.successDesc')} Rp {amount.toLocaleString('id-ID')} {t('donation.untuk')} <strong>{campaignTitle}</strong> {t('donation.berhasilDisalurkan')}</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <Button variant="outline" fullWidth onClick={() => setShowCertificate(true)}>Lihat Piagam Wakaf</Button>
-              <Button fullWidth onClick={handleClose}>Tutup</Button>
+              <Button variant="outline" fullWidth onClick={() => setShowCertificate(true)}>{t('donation.lihatPiagam')}</Button>
+              <Button fullWidth onClick={handleClose}>{t('donation.tutup')}</Button>
             </div>
           </div>
         ) : (
           <div className={styles.formState}>
-            <h3>Mulai Berwakaf</h3>
-            <p className={styles.subtitle}>Anda akan berwakaf untuk: {campaignTitle}</p>
+            <h3>{t('donation.mulaiWakaf')}</h3>
+            <p className={styles.subtitle}>{t('donation.forCampaign')} {campaignTitle}</p>
             
             <div className={styles.amountPresets}>
               {[50000, 100000, 250000, 500000, 1000000, 2000000].map(val => (
@@ -80,24 +82,24 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
             </div>
 
             <div className={styles.inputGroup}>
-              <label>Nominal Lainnya (Rp)</label>
-              <p>Masukkan jumlah custom sesuai kemampuan Anda</p>
+              <label>{t('donation.customAmount')}</label>
+              <p>{t('donation.customAmountDesc')}</p>
               <input 
                 type="number" 
                 value={amount || ''} 
                 onChange={(e) => setAmount(Number(e.target.value))}
-                placeholder="Masukkan nominal (minimum: Rp 10.000)"
+                placeholder={t('donation.minimum')}
                 className={styles.input}
               />
             </div>
 
             <div className={styles.inputGroup}>
-              <label>Nama Wakif (Opsional)</label>
+              <label>{t('donation.namaWakif')}</label>
               <input 
                 type="text" 
                 value={wakifName} 
                 onChange={(e) => setWakifName(e.target.value)}
-                placeholder="Hamba Allah"
+                placeholder={t('donation.placeholder')}
                 className={styles.input}
               />
             </div>
@@ -107,7 +109,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
               onClick={handleDonate} 
               disabled={amount <= 0 || isProcessing}
             >
-              {isProcessing ? 'Memproses...' : 'Lanjutkan Pembayaran'}
+              {isProcessing ? t('donation.processing') : t('donation.lanjutPembayaran')}
             </Button>
           </div>
         )}
@@ -118,7 +120,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose, c
         onClose={() => setShowCertificate(false)}
         campaignTitle={campaignTitle}
         amount={amount}
-        wakifName={wakifName.trim() || 'Hamba Allah'}
+        wakifName={wakifName.trim() || t('donation.placeholder')}
         date={new Date().toISOString()}
       />
     </div>

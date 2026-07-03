@@ -7,9 +7,11 @@ import { formatCurrency, calculateProgress } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { DonationModal } from '@/components/campaigns/DonationModal';
 import { CampaignTimeline } from '@/components/campaigns/CampaignTimeline';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './page.module.css';
 
 export default function CampaignDetails({ params }: { params: Promise<{ id: string }> }) {
+  const { t } = useLanguage();
   const { id } = use(params);
   const campaign = mockCampaigns.find(c => c.id === id);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,16 +43,16 @@ export default function CampaignDetails({ params }: { params: Promise<{ id: stri
           
           <div className={styles.statsRow}>
             <div className={styles.statBox}>
-              <span className={styles.statLabel}>Terkumpul</span>
+              <span className={styles.statLabel}>{t('campaign.terkumpul')}</span>
               <span className={styles.statValue}>{formatCurrency(campaign.currentAmount)}</span>
             </div>
             <div className={styles.statBox}>
-              <span className={styles.statLabel}>Target</span>
+              <span className={styles.statLabel}>{t('campaign.target')}</span>
               <span className={styles.statValue}>{formatCurrency(campaign.targetAmount)}</span>
             </div>
             <div className={styles.statBox}>
-              <span className={styles.statLabel}>Sisa Waktu</span>
-              <span className={styles.statValue}>{campaign.daysLeft} Hari</span>
+              <span className={styles.statLabel}>{t('campaign.sisaWaktu')}</span>
+              <span className={styles.statValue}>{campaign.daysLeft} {t('campaign.hari')}</span>
             </div>
           </div>
 
@@ -59,14 +61,14 @@ export default function CampaignDetails({ params }: { params: Promise<{ id: stri
               <div className={styles.progressFill} style={{ width: `${progress}%` }}></div>
             </div>
             <div className={styles.progressMeta}>
-              <span>{progress}% Tercapai</span>
+              <span>{progress}% {t('campaign.tercapai')}</span>
             </div>
           </div>
 
           <div className={styles.description}>
-            <h2>Cerita Proyek Konstruksi</h2>
+            <h2>{t('campaign.ceritaProjek')}</h2>
             <p>{campaign.description}</p>
-            <p>Pembangunan infrastruktur umat ini dikerjakan oleh <strong>Mitra Konstruksi Terkurasi</strong> dan diawasi menggunakan sistem pencairan dana Escrow per-milestone guna menghindari proyek mangkrak.</p>
+            <p>{t('campaign.mitra')} {t('campaign.diawasi')}</p>
           </div>
 
           {/* React-Chrono Timeline Component */}
@@ -78,13 +80,13 @@ export default function CampaignDetails({ params }: { params: Promise<{ id: stri
 
         <div className={styles.sidebar}>
           <div className={styles.actionCard}>
-            <h3>Mari Berwakaf</h3>
-            <p>Pahala yang terus mengalir walaupun kita telah tiada.</p>
+            <h3>{t('campaign.mariWakaf')}</h3>
+            <p>{t('campaign.pahala')}</p>
             <Button size="lg" fullWidth onClick={() => setIsModalOpen(true)}>
-              Wakaf Sekarang
+              {t('donation.mulaiWakaf')}
             </Button>
             <div className={styles.securityNote}>
-              <span>🔒 Transaksi aman & terenkripsi</span>
+              <span>🔒 {t('campaign.transaksiAman')}</span>
             </div>
           </div>
         </div>
