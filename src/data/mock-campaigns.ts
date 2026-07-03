@@ -42,7 +42,7 @@ export const mockCampaigns: Campaign[] = [
     description: 'Banyak warga di pelosok NTT kesulitan mendapatkan air bersih. Mari berwakaf untuk pembangunan sumur air bersih yang mengalirkan manfaat tiada henti.',
     targetAmount: 150000000,
     currentAmount: 85000000,
-    imageUrl: 'https://images.unsplash.com/photo-1541888043681-70bf815e616c?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1559027615-cd1628902ec4?auto=format&fit=crop&w=800&q=80',
     category: 'Water',
     daysLeft: 12,
     pbgStatus: 'Not Required',
@@ -82,5 +82,23 @@ export const mockCampaigns: Campaign[] = [
       { id: 'm10', name: 'Renovasi Fisik Klinik', status: 'completed', escrowReleased: true, amount: 150000000 },
       { id: 'm11', name: 'Pengadaan Alat Medis', status: 'in_progress', escrowReleased: false, amount: 150000000 },
     ]
+  },
+  {
+    id: '5',
+    title: 'Pembangunan Rumah Sakit Umum Daerah',
+    description: 'Wakaf pembangunan rumah sakit umum untuk melayani masyarakat daerah terpencil yang belum memiliki fasilitas kesehatan memadai. Dilengkapi dengan ruang rawat inap, ICU, dan fasilitas pendukung modern.',
+    targetAmount: 2500000000,
+    currentAmount: 450000000,
+    imageUrl: 'https://images.unsplash.com/photo-1576091160550-112173f7f869?auto=format&fit=crop&w=800&q=80',
+    category: 'Health',
+    daysLeft: 120,
+    pbgStatus: 'Verified',
+    milestones: [
+      { id: 'm12', name: 'Pembelian Lahan & Persiapan', status: 'completed', escrowReleased: true, amount: 500000000 },
+      { id: 'm13', name: 'Konstruksi Bangunan Utama', status: 'in_progress', escrowReleased: false, amount: 1000000000 },
+      { id: 'm14', name: 'Instalasi Utilitas & MEP', status: 'pending', escrowReleased: false, amount: 700000000 },
+      { id: 'm15', name: 'Pengadaan Peralatan Medis', status: 'pending', escrowReleased: false, amount: 300000000 },
+    ]
   }
 ];
+

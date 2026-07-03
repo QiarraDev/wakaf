@@ -35,8 +35,8 @@ export const mockAdminMetrics = {
   totalIncome: 845500000,
   totalLocked: 420000000,
   totalReleased: 425500000,
-  activeProjects: 4,
-  totalTargets: 2150000000,
+  activeProjects: 5,
+  totalTargets: 4650000000,
   totalDonors: 1245,
   averageDonation: 678800,
 };
@@ -159,6 +159,22 @@ export const mockProjectProgress: ProjectProgress[] = [
     milestones: [
       { name: 'Renovasi Fisik Klinik', status: 'completed', percentage: 100 },
       { name: 'Pengadaan Alat Medis', status: 'completed', percentage: 100 },
+    ]
+  },
+  {
+    id: '5',
+    name: 'Pembangunan Rumah Sakit Umum Daerah',
+    category: 'Health',
+    targetAmount: 2500000000,
+    collectedAmount: 450000000,
+    lockedAmount: 350000000,
+    releasedAmount: 100000000,
+    status: 'active',
+    milestones: [
+      { name: 'Pembelian Lahan & Persiapan', status: 'completed', percentage: 100 },
+      { name: 'Konstruksi Bangunan Utama', status: 'in_progress', percentage: 60 },
+      { name: 'Instalasi Utilitas & MEP', status: 'pending', percentage: 0 },
+      { name: 'Pengadaan Peralatan Medis', status: 'pending', percentage: 0 },
     ]
   },
 ];
