@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Wakaf Konstruksi - Platform Wakaf Transparan",
@@ -31,12 +33,16 @@ export default function RootLayout({
         />
         <meta name="theme-color" content="#1e40af" />
       </head>
-      <body>
-        <Navbar />
-        <main style={{ minHeight: 'calc(100vh - 200px)' }}>
-          {children}
-        </main>
-        <Footer />
+      <body suppressHydrationWarning>
+        <ThemeProvider>
+          <LanguageProvider>
+            <Navbar />
+            <main style={{ minHeight: 'calc(100vh - 200px)' }}>
+              {children}
+            </main>
+            <Footer />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

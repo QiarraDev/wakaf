@@ -1,0 +1,211 @@
+.switcherContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Language Selector */
+.languageWrapper {
+  position: relative;
+}
+
+.languageBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1f2937;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.languageBtn:hover {
+  border-color: #1e40af;
+  background-color: #f0f9ff;
+  color: #1e40af;
+}
+
+.langIcon {
+  font-size: 1.125rem;
+}
+
+.langText {
+  font-size: 1rem;
+  min-width: 24px;
+}
+
+/* Language Menu */
+.languageMenu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 40;
+  min-width: 160px;
+  overflow: hidden;
+  animation: slideDown 0.25s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.languageMenuItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.9375rem;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  gap: 0.75rem;
+}
+
+.languageMenuItem:hover {
+  background-color: #f9fafb;
+  color: #1e40af;
+}
+
+.languageMenuItem:not(:last-child) {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.languageMenuItemActive {
+  background-color: #dbeafe;
+  color: #1e40af;
+  font-weight: 700;
+}
+
+.langFlag {
+  font-size: 1.25rem;
+}
+
+.langName {
+  flex: 1;
+}
+
+.checkmark {
+  font-weight: 700;
+  color: #1e40af;
+}
+
+/* Theme Toggle */
+.themeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0.5rem;
+  background: #f3f4f6;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.themeBtn:hover {
+  background: #e5e7eb;
+  border-color: #1e40af;
+  transform: scale(1.05);
+}
+
+.themeBtn.light {
+  background: #fef3c7;
+  border-color: #fcd34d;
+}
+
+.themeBtn.light:hover {
+  background: #fce7a3;
+}
+
+.themeBtn.dark {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+.themeBtn.dark:hover {
+  background: #111827;
+}
+
+/* Dark Mode Adjustments */
+:global(.dark) .languageBtn {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f3f4f6;
+}
+
+:global(.dark) .languageBtn:hover {
+  border-color: #3b82f6;
+  background-color: #1e3a8a;
+  color: #3b82f6;
+}
+
+:global(.dark) .languageMenu {
+  background: #1f2937;
+  border-color: #374151;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+:global(.dark) .languageMenuItem {
+  color: #d1d5db;
+}
+
+:global(.dark) .languageMenuItem:hover {
+  background-color: #374151;
+  color: #3b82f6;
+}
+
+:global(.dark) .languageMenuItem:not(:last-child) {
+  border-bottom-color: #374151;
+}
+
+:global(.dark) .languageMenuItemActive {
+  background-color: #1e3a8a;
+  color: #3b82f6;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .switcherContainer {
+    gap: 0.5rem;
+  }
+
+  .languageBtn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  .langText {
+    min-width: 20px;
+  }
+
+  .themeBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.125rem;
+  }
+}

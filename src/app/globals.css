@@ -49,6 +49,22 @@
   --font-size-2xl: 24px;
   --font-size-3xl: 28px;
   --font-size-4xl: 32px;
+  
+  /* Light Mode Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+}
+
+/* Dark Mode */
+html.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --border-color: #334155;
 }
 
 * {
@@ -62,9 +78,10 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: var(--font-sans);
-  background-color: #ffffff;
-  color: var(--neutral-900);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -84,6 +101,11 @@ button {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+html.dark .glass {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(30, 41, 59, 0.3);
 }
 
 .container {
@@ -106,14 +128,29 @@ button {
   color: var(--success-green);
 }
 
+html.dark .badge-success {
+  background-color: rgba(22, 163, 74, 0.2);
+  color: #4ade80;
+}
+
 .badge-warning {
   background-color: var(--warning-light);
   color: var(--warning-amber);
 }
 
+html.dark .badge-warning {
+  background-color: rgba(217, 119, 6, 0.2);
+  color: #facc15;
+}
+
 .badge-danger {
   background-color: var(--danger-light);
   color: var(--danger-red);
+}
+
+html.dark .badge-danger {
+  background-color: rgba(220, 38, 38, 0.2);
+  color: #f87171;
 }
 
 .status-indicator {
@@ -187,25 +224,28 @@ h1 {
   font-size: var(--font-size-4xl);
   font-weight: 700;
   line-height: 1.2;
+  color: var(--text-primary);
 }
 
 h2 {
   font-size: var(--font-size-3xl);
   font-weight: 600;
   line-height: 1.3;
+  color: var(--text-primary);
 }
 
 h3 {
   font-size: var(--font-size-xl);
   font-weight: 600;
   line-height: 1.4;
+  color: var(--text-primary);
 }
 
 /* Progress Bar */
 .progress-bar {
   width: 100%;
   height: 6px;
-  background-color: var(--neutral-200);
+  background-color: var(--border-color);
   border-radius: 9999px;
   overflow: hidden;
 }
@@ -239,4 +279,3 @@ h3 {
     font-size: 24px;
   }
 }
-
