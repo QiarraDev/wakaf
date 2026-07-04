@@ -5,7 +5,7 @@ export const translations = {
     nav: {
       program: 'Program Wakaf',
       simulasi: 'Simulasi Wakaf',
-      dashboard: 'Dashboard',
+      dashboard: 'Berita Program',
       admin: 'Admin Panel',
       masuk: 'Masuk',
       mulaiWakaf: 'Mulai Wakaf',
@@ -122,7 +122,7 @@ export const translations = {
     nav: {
       program: 'Waqf Programs',
       simulasi: 'Waqf Simulation',
-      dashboard: 'Dashboard',
+      dashboard: 'Program News',
       admin: 'Admin Panel',
       masuk: 'Sign In',
       mulaiWakaf: 'Start Waqf',
@@ -239,7 +239,7 @@ export const translations = {
     nav: {
       program: 'برامج الوقف',
       simulasi: 'محاكاة الوقف',
-      dashboard: 'لوحة التحكم',
+      dashboard: 'أخبار البرامج',
       admin: 'لوحة الإدارة',
       masuk: 'تسجيل الدخول',
       mulaiWakaf: 'ابدأ الوقف',

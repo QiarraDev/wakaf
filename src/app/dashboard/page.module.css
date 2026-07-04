@@ -1,68 +1,463 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg-secondary);
+  padding: 2rem 0 4rem;
+}
+
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 4rem 1.5rem;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* ── Page Header ── */
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2rem;
+  font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
 }
 
 .subtitle {
+  font-size: 1rem;
   color: var(--text-secondary);
-  font-size: 1.125rem;
-  margin-bottom: 3rem;
 }
 
+/* ── Stats Grid ── */
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
 }
 
 .statCard {
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  border-left: 4px solid var(--primary-color);
+  padding: 1.5rem 1rem;
+  gap: 0.4rem;
+  background: var(--bg-primary) !important;
+  transition: transform 0.2s ease;
 }
 
-.statCard h3 {
+.statCard:hover {
+  transform: translateY(-3px);
+}
+
+.statIcon {
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--text-secondary);
-  font-size: 1.125rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .statValue {
-  font-size: 2.5rem;
+  font-size: 1.4rem;
   font-weight: 800;
-  color: var(--primary-color);
-}
-
-.historySection h2 {
-  font-size: 1.5rem;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
 }
 
-.emptyState {
-  background: var(--surface-color);
-  border: 1px dashed var(--border-color);
-  padding: 4rem;
-  text-align: center;
-  border-radius: 12px;
+/* ── Section ── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sectionTitle h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.sectionIcon {
+  font-size: 1.3rem;
+}
+
+.sectionPill {
+  margin-left: 0.5rem;
+  background: rgba(59,130,246,0.12);
+  color: #1d4ed8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+}
+
+html.dark .sectionPill {
+  color: #60a5fa;
+  background: rgba(59,130,246,0.2);
+}
+
+.sectionDesc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: -0.5rem;
+}
+
+/* ── Gamification ── */
+.gamificationGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+/* Level Card */
+.levelCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: var(--bg-primary) !important;
+}
+
+.levelBadge {
+  width: 70px;
+  height: 70px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.levelIcon {
+  font-size: 2rem;
+}
+
+.levelInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.levelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.levelName {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.levelTotal {
+  font-size: 0.82rem;
+  font-weight: 700;
   color: var(--text-secondary);
 }
 
+.levelBarWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.levelBar {
+  flex: 1;
+  height: 10px;
+  background: var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.levelBarFill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.levelPercent {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  min-width: 36px;
+  text-align: right;
+}
+
+.levelNext {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Badges Card */
+.badgesCard {
+  padding: 1.5rem;
+  background: var(--bg-primary) !important;
+}
+
+.badgesTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.emptyBadge {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.badgesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.7rem 0.85rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  min-width: 80px;
+  transition: transform 0.2s;
+  cursor: default;
+}
+
+.badge:hover {
+  transform: translateY(-2px);
+}
+
+.badgeIcon {
+  font-size: 1.6rem;
+}
+
+.badgeLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ── News Grid ── */
+.newsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.25rem;
+}
+
+.newsCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary) !important;
+  overflow: hidden;
+}
+
+.newsImage {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.newsBody {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.newsMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.newsTypeBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.newsDate {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.newsCampaign {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin: 0;
+}
+
+.newsTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.newsContent {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Impact Stats */
+.impactGrid {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+}
+
+.impactItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+}
+
+.impactIcon {
+  font-size: 1.2rem;
+}
+
+.impactItem strong {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.impactItem span {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Budget Breakdown */
+.budgetSection {
+  padding: 0.875rem;
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: 10px;
+}
+
+html.dark .budgetSection {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.budgetTitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.budgetTitle strong {
+  color: #0f766e;
+  font-weight: 700;
+}
+
+.budgetBars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.budgetRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.budgetRowTop {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.budgetBar {
+  height: 6px;
+  background: var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.budgetBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #0f766e, #10b981);
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+/* Milestone Tag */
+.milestoneTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(124,58,237,0.1);
+  border: 1px solid rgba(124,58,237,0.2);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  color: #7c3aed;
+}
+
+html.dark .milestoneTag {
+  color: #c4b5fd;
+  background: rgba(124,58,237,0.15);
+  border-color: rgba(124,58,237,0.3);
+}
+
+/* ── History Table ── */
 .tableContainer {
-  background: var(--surface-color);
+  overflow-x: auto;
   border-radius: 12px;
   border: 1px solid var(--border-color);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  background: var(--bg-primary);
 }
 
 .table {
@@ -70,34 +465,244 @@
   border-collapse: collapse;
 }
 
-.table th, .table td {
-  padding: 1rem 1.5rem;
+.table th {
+  background: var(--bg-secondary);
+  padding: 0.875rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
   text-align: left;
   border-bottom: 1px solid var(--border-color);
 }
 
-.table th {
-  background: var(--background-color);
-  font-weight: 600;
-  color: var(--text-secondary);
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.table td {
+  padding: 0.875rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
 }
 
-.table td {
-  color: var(--text-primary);
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover td {
+  background: var(--bg-secondary);
 }
 
 .amount {
-  font-weight: 600;
+  font-weight: 700;
+  color: #0f766e;
 }
 
 .statusSuccess {
-  background: rgba(16, 185, 129, 0.1);
-  color: var(--success-color);
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 600;
+  background: rgba(22, 163, 74, 0.1);
+  color: #16a34a;
+}
+
+html.dark .statusSuccess {
+  background: rgba(22, 163, 74, 0.18);
+  color: #4ade80;
+}
+
+.emptyState {
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  border-radius: 12px;
+  border: 1px dashed var(--border-color);
+}
+
+/* ── Milestone Timeline ── */
+.timelineSection {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.timelineTitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 1rem;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timelineStep {
+  display: flex;
+  gap: 0.875rem;
+  align-items: flex-start;
+}
+
+.timelineDotCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.timelineDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background: var(--bg-primary);
+  flex-shrink: 0;
+  margin-top: 3px;
+  transition: all 0.2s;
+}
+
+.timelineDone .timelineDot {
+  background: #16a34a;
+  border-color: #16a34a;
+  box-shadow: 0 0 8px rgba(22, 163, 74, 0.4);
+}
+
+.timelineActive .timelineDot {
+  background: #2563eb;
+  border-color: #2563eb;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+  animation: pulseDot 1.8s ease-in-out infinite;
+}
+
+.timelinePending .timelineDot {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.8; }
+}
+
+.timelineLine {
+  width: 2px;
+  flex: 1;
+  min-height: 20px;
+  background: var(--border-color);
+  margin: 4px 0;
+}
+
+.timelineDone + .timelineStep .timelineLine,
+.timelineDone .timelineLine {
+  background: #16a34a;
+}
+
+.timelineContent {
+  flex: 1;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.timelineStep:last-child .timelineContent {
+  padding-bottom: 0;
+}
+
+.timelineRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.timelineStepName {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.timelineAmount {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.timelineDate {
+  font-size: 0.73rem;
+  color: var(--text-secondary);
+}
+
+.timelineStatusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.timelineBadgeDone {
+  background: rgba(22, 163, 74, 0.12);
+  color: #16a34a;
+}
+
+html.dark .timelineBadgeDone {
+  background: rgba(22, 163, 74, 0.2);
+  color: #4ade80;
+}
+
+.timelineBadgeActive {
+  background: rgba(37, 99, 235, 0.12);
+  color: #1d4ed8;
+}
+
+html.dark .timelineBadgeActive {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.timelineBadgePending {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--text-secondary);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .gamificationGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .newsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .levelCard {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .levelHeader {
+    justify-content: center;
+  }
 }
