@@ -6,6 +6,8 @@ import { Button } from '../ui/Button';
 import { LanguageThemeSwitcher } from './LanguageThemeSwitcher';
 import { useLanguage } from '@/context/LanguageContext';
 
+import { MosqueLogo } from '../ui/MosqueLogo';
+
 export const Navbar = () => {
   const { t } = useLanguage();
 
@@ -13,7 +15,12 @@ export const Navbar = () => {
     <header className={`${styles.navbar} glass`}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          <span>Wakaf</span>Ku
+          <div className={styles.logoIcon}>
+            <MosqueLogo />
+          </div>
+          <div className={styles.logoText}>
+            <span>Wakaf</span> Konstruksi
+          </div>
         </Link>
         <nav className={styles.navLinks}>
           <Link href="/campaigns" className={styles.link}>{t('nav.program')}</Link>

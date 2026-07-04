@@ -19,14 +19,36 @@
   margin-bottom: 3rem;
 }
 
-.brand h3 {
+.logo {
   font-size: 1.5rem;
-  color: var(--primary-color);
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.brand span {
-  color: var(--text-primary);
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f766e;
+  font-size: 1.8rem;
+}
+
+html.dark .logoIcon {
+  color: #2dd4bf;
+}
+
+.logoText {
+  display: flex;
+  align-items: center;
+}
+
+.logoText span {
+  color: var(--primary-blue);
+  margin-left: 4px;
 }
 
 .brand p {

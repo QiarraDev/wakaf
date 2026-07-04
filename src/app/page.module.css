@@ -22,20 +22,23 @@
   max-width: 600px;
 }
 
-.title {
-  font-size: 40px;
-  line-height: 1.2;
+.eyebrow {
+  font-size: 0.85rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #111827;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #0f766e;
+  margin-bottom: 1rem;
+  display: inline-block;
 }
 
-.title span {
-  background: linear-gradient(135deg, #1e40af 0%, #0f766e 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.title {
+  font-size: 56px;
+  line-height: 1.1;
   font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {

@@ -16,15 +16,36 @@
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 800;
-  color: var(--primary-color);
-  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.logo span {
-  color: var(--text-primary);
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f766e; /* Green color for the mosque logo */
+  font-size: 1.5rem;
 }
+
+html.dark .logoIcon {
+  color: #2dd4bf; /* Lighter teal/green for dark mode */
+}
+
+.logoText {
+  display: flex;
+  align-items: center;
+}
+
+.logoText span {
+  color: var(--primary-blue);
+  margin-right: 4px;
+}
+
 
 .navLinks {
   display: flex;

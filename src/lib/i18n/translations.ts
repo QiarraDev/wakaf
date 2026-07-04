@@ -12,8 +12,9 @@ export const translations = {
     },
     // Homepage
     home: {
-      title: 'Infrastruktur Umat, Dibangun Bersama',
-      heroSubtitle: 'Wujudkan mimpi wakaf produktif dengan jaminan SNI, izin PBG, dan pencairan dana Escrow per-milestone.',
+      eyebrow: 'PLATFORM INFRASTRUKTUR UMAT BERBASIS WAKAF',
+      title: 'Wakaf Konstruksi',
+      heroSubtitle: 'Marketplace wakaf-konstruksi yang menjamin setiap rupiah menjadi bangunan nyata.',
       featuredCampaigns: 'Campaign Unggulan',
       viewAll: 'Lihat Semua',
     },
@@ -128,8 +129,9 @@ export const translations = {
     },
     // Homepage
     home: {
-      title: 'Community Infrastructure, Built Together',
-      heroSubtitle: 'Realize productive waqf dreams with SNI certification, PBG permits, and milestone-based fund releases.',
+      eyebrow: 'WAQF-BASED COMMUNITY INFRASTRUCTURE PLATFORM',
+      title: 'Construction Waqf',
+      heroSubtitle: 'A construction waqf marketplace that guarantees every rupiah becomes a real building.',
       featuredCampaigns: 'Featured Campaigns',
       viewAll: 'View All',
     },
@@ -244,8 +246,9 @@ export const translations = {
     },
     // Homepage
     home: {
-      title: 'البنية التحتية للمجتمع، مبنية معاً',
-      heroSubtitle: 'تحقيق أحلام الوقف المنتجة مع شهادة SNI وتراخيص PBG وإطلاق الأموال على أساس مراحل.',
+      eyebrow: 'منصة البنية التحتية المجتمعية القائمة على الوقف',
+      title: 'وقف البناء',
+      heroSubtitle: 'سوق لوقف البناء يضمن تحول كل روبية إلى مبنى حقيقي.',
       featuredCampaigns: 'الحملات المميزة',
       viewAll: 'عرض الكل',
     },

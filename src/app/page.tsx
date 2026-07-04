@@ -17,12 +17,11 @@ export default function Home() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
+          <span className={styles.eyebrow}>{t('home.eyebrow')}</span>
           <h1 className={styles.title}>
-            Infrastruktur Umat, <br/> Dibangun Bersama <span>Wakaf Konstruksi</span>
+            {t('home.title')}
           </h1>
-          <p className={styles.subtitle}>
-            Platform marketplace 3-sisi: <strong>Waqif</strong>, <strong>Pengelola Fasilitas</strong>, dan <strong>Mitra Konstruksi</strong>. Berwakaf aman dengan jaminan SNI, izin PBG, dan pencairan dana Escrow per-milestone (Anti-mangkrak).
-          </p>
+          <p className={styles.subtitle} dangerouslySetInnerHTML={{ __html: t('home.heroSubtitle') }} />
           <div className={styles.heroActions}>
             <Link href="/campaigns">
               <Button variant="primary" size="lg">Mulai Berwakaf</Button>
