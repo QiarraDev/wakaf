@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: var(--bg-primary);
 }
 
 /* Hero Section */
@@ -37,19 +37,19 @@
   line-height: 1.1;
   font-weight: 800;
   margin-bottom: 1.5rem;
-  color: #111827;
+  color: var(--text-primary);
   letter-spacing: -0.02em;
 }
 
 .subtitle {
   font-size: 18px;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin-bottom: 2.5rem;
   line-height: 1.6;
 }
 
 .subtitle strong {
-  color: #1e40af;
+  color: var(--primary-blue);
   font-weight: 600;
 }
 
@@ -100,7 +100,7 @@
 
 /* Featured Campaigns Section */
 .featured {
-  background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   padding: 6rem 1.5rem;
 }
 
@@ -115,7 +115,7 @@
 .sectionHeader h2 {
   font-size: 32px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -155,7 +155,7 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  background-color: #f3f4f6;
+  background-color: var(--bg-secondary);
 }
 
 .categoryBadge {
@@ -183,7 +183,7 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #111827;
+  color: var(--text-primary);
   line-height: 1.4;
 }
 
@@ -209,7 +209,7 @@
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 8px;
-  color: #374151;
+  color: var(--text-primary);
 }
 
 .progressBar {
@@ -229,7 +229,7 @@
 
 .targetText {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
@@ -238,7 +238,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 16px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-color);
 }
 
 .daysLeft {
