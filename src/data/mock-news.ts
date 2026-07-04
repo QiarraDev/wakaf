@@ -45,7 +45,7 @@ export const mockProgramNews: ProgramNews[] = [
     timeline: [
       { id: 'm1', name: 'Pondasi & Struktur Bawah', status: 'completed', date: '2026-06-10', amount: 100000000 },
       { id: 'm2', name: 'Struktur Dinding & Kolom', status: 'in_progress', date: 'Est. Jul 2026', amount: 150000000 },
-      { id: 'm3', name: 'Atap & Finishing', status: 'pending', amount: 250000000 },
+      { id: 'm3', name: 'Atap & Finishing', status: 'pending', date: 'Est. Sep 2026', amount: 250000000 },
     ],
     budgetBreakdown: [
       { label: 'Material Beton & Besi', amount: 55000000, percentage: 55 },
@@ -73,7 +73,7 @@ export const mockProgramNews: ProgramNews[] = [
     timeline: [
       { id: 'm1', name: 'Pondasi & Struktur Bawah', status: 'completed', date: '10 Jun 2026', amount: 100000000 },
       { id: 'm2', name: 'Struktur Dinding & Kolom', status: 'in_progress', date: 'Est. Jul 2026', amount: 150000000 },
-      { id: 'm3', name: 'Atap & Finishing', status: 'pending', amount: 250000000 },
+      { id: 'm3', name: 'Atap & Finishing', status: 'pending', date: 'Est. Sep 2026', amount: 250000000 },
     ],
     impactStats: [
       { label: 'Progress Dinding', value: '60%', icon: '🧱' },
@@ -93,7 +93,7 @@ export const mockProgramNews: ProgramNews[] = [
     timeline: [
       { id: 'm4', name: 'Survei Geolistrik & Pengeboran', status: 'completed', date: '5 Jun 2026', amount: 50000000 },
       { id: 'm5', name: 'Instalasi Pipa & Tandon', status: 'in_progress', date: 'Est. Jul 2026', amount: 50000000 },
-      { id: 'm6', name: 'Mesin Pompa & Finishing', status: 'pending', amount: 50000000 },
+      { id: 'm6', name: 'Mesin Pompa & Finishing', status: 'pending', date: 'Est. Ags 2026', amount: 50000000 },
     ],
     budgetBreakdown: [
       { label: 'Survei Geolistrik', amount: 15000000, percentage: 30 },
@@ -121,7 +121,7 @@ export const mockProgramNews: ProgramNews[] = [
     timeline: [
       { id: 'm7', name: 'Pembebasan Lahan', status: 'completed', date: '25 Jun 2026', amount: 500000000 },
       { id: 'm8', name: 'Pondasi Bangunan', status: 'pending', date: 'Est. Okt 2026', amount: 300000000 },
-      { id: 'm9', name: 'Dinding & Atap', status: 'pending', amount: 400000000 },
+      { id: 'm9', name: 'Dinding & Atap', status: 'pending', date: 'Est. Des 2026', amount: 400000000 },
     ],
     budgetBreakdown: [
       { label: 'Harga Lahan', amount: 420000000, percentage: 84 },

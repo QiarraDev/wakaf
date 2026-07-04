@@ -26,6 +26,7 @@ export const Navbar = () => {
           <Link href="/campaigns" className={styles.link}>{t('nav.program')}</Link>
           <Link href="/simulasi" className={styles.link}>{t('nav.simulasi')}</Link>
           <Link href="/dashboard" className={styles.link}>{t('nav.dashboard')}</Link>
+          <Link href="/mitra" className={styles.link}>{t('nav.mitra')}</Link>
           <Link href="/admin" className={styles.link} style={{ color: 'var(--danger-color)' }}>{t('nav.admin')}</Link>
         </nav>
         <div className={styles.actions}>

@@ -6,7 +6,6 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { CertificateModal } from '@/components/campaigns/CertificateModal';
 import { mockProgramNews, ProgramNews } from '@/data/mock-news';
-import { formatCurrency } from '@/lib/utils';
 import styles from './page.module.css';
 
 interface Contribution {

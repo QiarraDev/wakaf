@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { DonationModal } from '@/components/campaigns/DonationModal';
 import { CampaignTimeline } from '@/components/campaigns/CampaignTimeline';
 import { useLanguage } from '@/context/LanguageContext';
+import { translations } from '@/lib/i18n/translations';
 import styles from './page.module.css';
 
 export default function CampaignDetails({ params }: { params: Promise<{ id: string }> }) {
@@ -28,7 +29,7 @@ export default function CampaignDetails({ params }: { params: Promise<{ id: stri
         <div className={styles.imageWrapper} style={{ backgroundImage: `url(${campaign.imageUrl})` }}>
           <div className={styles.overlay}>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <span className={styles.badge}>{campaign.category}</span>
+              <span className={styles.badge}>{t(`categories.${campaign.category}`)}</span>
               <span className={styles.badge} style={{ background: campaign.pbgStatus === 'Verified' ? 'var(--success-color)' : '#94a3b8' }}>
                 PBG: {campaign.pbgStatus}
               </span>
